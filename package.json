@@ -1,0 +1,12 @@
+{
+  "name": "rrbit-js",
+  "version": "1.0.0",
+  "description": "persistent collections in js using relaxed-radix-balancing",
+  "main": "lib/index.js",
+  "repository": "https://github.com/rrbit-org/rrbit-js.git",
+  "author": "bngreer@wishfoundry.com",
+  "license": "MIT",
+  "dependencies": {
+    "lib-rbbit": "*"
+  }
+}
