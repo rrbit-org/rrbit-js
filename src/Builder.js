@@ -1,4 +1,5 @@
-import * as LinkedList from './SinglyLinkedList';
+import * as LinkedList from './builder/SinglyLinkedList';
+import * as SequenceRunner from './builder/Seq'
 import lib from 'lib-rbbit';
 import {isVector} from './Vector';
 
@@ -10,26 +11,26 @@ import {isVector} from './Vector';
 function Builder() {
     this.pre = null;
 
-    this.display0 = []
-    this.display1 = null
-    this.display2 = null
-    this.display3 = null
-    this.display4 = null
-    this.display5 = null
-    this.depth = 1;
-    this.blockIndex = 0
-    this.lo = 0
+    this.sequences = [];
 
-    this.accumulator = lib.empty();
+    this.accumulator = null;
 }
 
-Object.defineProperty(Builder.prototype, 'length', {
-    get: function() {
-        return this.blockIndex + this.lo + this.accumulator.length;
+
+proto.and = function (singleValue) {
+    
+    lib.appendǃ((this.accumulator || (this.accumulator = lib.empty())), singleValue)
+    return this;
+}
+
+proto.andAll = function(iterable) {
+    if (this.accumulator) {
+        this.sequences.push(SequenceRunner.of(this.accumulator))
+        this.accumulator = null;
     }
-})
-
-
+    this.sequences.push(SequenceRunner.of(iterable));
+    return this;
+}
 
 
 
@@ -66,8 +67,31 @@ proto.scan = () => {}
 
 //to collection
 proto.toSet = () => {}
-proto.toVector = () => {}
-proto.toArray = () => {}
+
+proto.toVector = function() {
+    var vec = lib.empty();
+    var seqs = this.sequences;
+    for (var i = 0, len = seqs.length; len > i; i++) {
+        var runner = seqs[i];
+        runner.reduce(function(list, value) {
+            return list.appendǃ(value);
+        }, vec);
+    }
+    return vec;
+}
+
+proto.toArray = function() {
+    var arr = [];
+    var seqs = this.sequences;
+    for (var i = 0, len = seqs.length; len > i; i++) {
+        var runner = seqs[i];
+        runner.reduce(function(list, value) {
+            list.push(value)
+            return list;
+        }, arr);
+    }
+    return vec;
+}
 
 //to string
 proto.join = (separator) => {}
@@ -82,3 +106,5 @@ proto.reduce = () => {}
 
 proto.foldr = () => {}
 proto.reduceRight = () => {}
+
+

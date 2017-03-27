@@ -1,22 +1,30 @@
-import librrbit from 'lib-rbbit';
+import { setup } from 'lib-rrbit';
 
 
+export {
+    _from as from,
+    _of as of,
+    empty,
+    isVector
+}
 
 function Vector(len) {
     this.length = len || 0;
 }
 
-var lib = Object.assign({}, librrbit);
 
-lib.make = (len) => new Vector(len)
 
-export function of(...values) {
-    return values.length == 1 ? lib.appendǃ(values[0], lib.empty()) : from(values);
+var factory = (len) => new Vector(len)
+
+var lib = setup(factory);
+
+function _of(...values) {
+    return values.length == 1 ? lib.appendǃ(values[0], lib.empty()) : _from(values);
 }
 
-Vector.of = Vector.prototype.of = of;
+Vector.of = Vector.prototype.of = _of;
 
-export function from(iterable) {
+function _from(iterable) {
     if (iterable instanceof Vector)
         return iterable;
 
@@ -34,9 +42,10 @@ export function from(iterable) {
     return vec;
 }
 
-Vector.from = Vector.prototype.from = from;
+Vector.from = Vector.prototype.from = _from;
 
-export function isVector(thing) {
+
+function isVector(thing) {
     return thing instanceof Vector;
 }
 
@@ -46,7 +55,7 @@ Vector.isVector = Vector.prototype.isVector = isVector;
 
 var proto = Vector.prototype;
 
-proto.empty = () => lib.empty()
+const empty = Vector.empty = proto.empty = () => lib.empty()
 
 proto.map = function(fn) {
     return (lib
@@ -113,29 +122,33 @@ proto.slice = function(from, to) {
 };
 
 proto.indexOf = function(value) {
-    var index = -1;
-    lib.iterator(0, this.length, this)
-        .killableReduce((i, _value, abort) => 
-            _value === value ? ((index = i) && abort() ) : i + 1
-        , 0);
-
-    return index;
+    return this.find((_value) => value === value).index
 };
 
 proto.includes = function(value) {
    return this.indexOf(value) !== -1
 }
 
-proto.findIndex = function(fn) {
-    var index = -1;
-    lib.iterator(0, this.length, this)
-        .killableReduce((i, _value, abort) => 
-            fn(_value) ? ((index = i) && abort() ) : i + 1
-        , 0);
-
-    return index;
+/**
+ * @param {function(T, number): boolean} predicate
+ * @return {{value: T, index: number}}
+ */
+proto.find = function(predicate) {
+    return lib.iterator(0, this.length, this).find(predicate);
 }
 
+proto.reduce = function(fn, seed) {
+    return (lib
+            .iterator(0, this.length, this)
+            .reduce(fn, seed));
+}
+
+/**
+ * foldl has argument order flipped from reduce, allowing for 
+ * better composition
+ * @param {function(T, acc)} fn
+ * @param {}
+ */ 
 proto.foldl = function(fn, seed) {
     return (lib
             .iterator(0, this.length, this)
@@ -149,7 +162,7 @@ proto.foldr = function(fn, seed ){
 }
 
 proto.concat = function(iterable) {
-    return lib.appendAll(this, from(iterable));
+    return lib.appendAll(this, _from(iterable));
 }
 
 proto.appendAll = proto.concat

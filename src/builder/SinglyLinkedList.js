@@ -20,6 +20,10 @@ export function fromArray(arr) {
 	return list;
 }
 
+export function isList(list) {
+	return list instanceof SinglyLinkedList;
+}
+
 var proto = SinglyLinkedList.prototype
 
 proto.add = function(value) {
