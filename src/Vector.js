@@ -179,4 +179,3 @@ proto[Symbol.iterator] = proto.iterator
 // remove
 // insertAt
 // intersperse
-// find
