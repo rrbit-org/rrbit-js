@@ -69,16 +69,41 @@ test('find', () => {
 	expect(i).toEqual(500)
 });
 
+test('take', () => {
+	var vec = List.range(0, 1000);
+
+	var vec2 = vec.take(500);
+	expect(vec2.length).toEqual(500)
+
+	for (var i = 0; 500 > i; i++) {
+		expect(vec2.nth(i, 'not found')).toEqual(i)
+	}
+
+
+
+});
+
+test('drop', () => {
+	var vec = List.range(0, 1000);
+
+	var vec2 = vec.drop(500);
+	expect(vec2.length).toEqual(500)
+
+	for (var i = 0; 500 > i; i++) {
+		expect(vec2.nth(i, 'not found')).toEqual(i + 500)
+	}
+
+});
 
 test('removeAt', () => {
 	var vec = List.range(0, 1000)
 
 	var vec2 = vec.removeAt(500);
+	expect(vec2.nth(499)).toEqual(499)
+	expect(vec2.nth(500)).toEqual(501)
+	expect(vec2.nth(501)).toEqual(502)
 	expect(vec2.length).toEqual(999)
-	expect(vec2.nth(501)).toEqual(999) //534?
-	expect(vec2.nth(500)).toEqual(999) //533?
-	expect(vec2.nth(499)).toEqual(999) //532?
-
+//
 });
 
 
@@ -86,10 +111,10 @@ test('insertAt', () => {
 	var vec = List.range(0, 1000)
 
 	var vec2 = vec.insertAt(500, "findMe");
-	expect(vec2.length).toEqual(1001)
-	expect(vec2.nth(501)).toEqual(999) //532?
-	expect(vec2.nth(500)).toEqual(999) //531?
-	expect(vec2.nth(499)).toEqual(999) //530?
+	expect(vec2.length).toEqual(1001, 'wrong length')
+	expect(vec2.nth(499)).toEqual(499, 'wrong prev value')
+	expect(vec2.nth(500)).toEqual('findMe', 'wring inserted value')
+	expect(vec2.nth(501)).toEqual(500, 'wrong after value')
 });
 
 test('every', () => {

@@ -29,7 +29,7 @@ function SequenceRunner(list) {
 }
 
 SequenceRunner.prototype.reduce = function(fn, seed) {
-    this['reduce' + this.type](fn, seed, this.list);
+    return this['reduce' + this.type](fn, seed, this.list);
 }
 
 SequenceRunner.prototype.reduceArray = function(fn, seed, array) {

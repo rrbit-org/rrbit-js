@@ -97,10 +97,18 @@ proto.filter = function(fn) {
 		fn(value) ? append(value, list) : list, empty());
 };
 
+/**
+ * drop first n items, keeping the remaining
+ * @param n
+ */
 proto.drop = function(n) {
     return drop(n, this);
 };
 
+/**
+ * keep first n item, dropping the remaining
+ * @param n
+ */
 proto.take = function(n) {
     return take(n, this);
 };
@@ -160,7 +168,15 @@ proto.foldr = function(fn, seed ){
 }
 
 proto.appendAll = proto.concat = function(iterable) {
-    return appendAll(this, _from(iterable));
+	// rrbit#appendAll seems to be cranky, so we'll do a full copy
+	// until lib-rrbit get's better
+	// return appendAll(this, _from(iterable));
+	
+	var addIn = (list, value) => append(value, list);
+	var vec = this.reduce(addIn, empty());
+	
+	return Sequence.of(iterable).reduce(addIn, vec)
+    
 }
 
 
@@ -175,7 +191,7 @@ proto[Symbol.iterator] = proto.iterator = function(from, to) {
 
 // every
 proto.every = function(predicate) {
-    return this.find(value => !predicate(value)).index !== -1;
+    return this.find(value => !predicate(value)).index == -1;
 }
 
 proto.some = function(predicate) {
@@ -215,8 +231,19 @@ List.range = proto.range = range;
 
 
 proto.intersperse = function(separator) {
-	return (this.length > 2) ? this : this.drop(1).reduce((acc, value) =>
-			        append(separator, append(value, acc)), this.of(this.nth(0)));
+	return (this.length < 2) ? 
+		this : 
+		this.iterator(1, this.length)
+			.reduce((acc, value) => 
+				append(separator, append(value, acc)), this.take(1));
+}
+
+proto.join = function(separator) {
+	if (this.length == 0) return "";
+	if (this.length == 1) return "" + this.nth(0);
+	return (this.iterator(1, this.length)
+				.reduce((acc, value) => 
+				acc + separator + value, this.nth(0) + ""))
 }
 
 
