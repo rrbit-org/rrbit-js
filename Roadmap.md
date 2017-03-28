@@ -24,17 +24,17 @@
         * [ ] passes all tests
     * [x] reduce / foldl / foldr
         * [ ] passes all tests
-    * [x] find / includes / indexOf
-        * [ ] passes all tests
     * [ ] concat / appendAll
         * [ ] passes all tests
         * [x] concats 2 vectors
         * [x] concats an array
         * [x] concats an iterable
     * short circuit-ing
-        * [x] every
-        * [x] some
-        * [x] find
+        * [x] find passes all tests
+        * [x] indexOf passes all tests
+        * [x] includes passes all tests
+        * [ ] every passes all tests
+        * [x] some passes all tests
 
     
 * js builder api
@@ -53,10 +53,9 @@
         * to native array
         * to lazy iterable
         
-* generator api
-    * range
-    * fill
-    * fromIndex
+* generation api
+    * range - populate with a range of numbers
+    * times - invoke a supplied function n times 
 
 * fantasyland compliance
     * [x] applicative

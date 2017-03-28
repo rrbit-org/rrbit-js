@@ -6,7 +6,7 @@ export function List(len) {
 
 
 export function isList(thing) {
-	return thing instanceof Vector;
+	return thing instanceof List;
 }
 
 

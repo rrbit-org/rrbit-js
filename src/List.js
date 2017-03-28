@@ -6,26 +6,21 @@ const {
 	take,
 	update,
 	append,
-	appendǃ,
+	appendǃ, //a little unsafe ATM
 	prepend,
 	appendAll,
 	empty,
 	iterator,
 	reverseIterator} = rrbit;
 
-export {
-    _from as from,
-    _of as of,
-    empty,
-    isList
-}
 
-List.empty = proto.empty = empty;
+
+List.empty = empty;
 List.isList = List.prototype.isList = isList;
 
 
 function _of(...values) {
-    return values.length == 1 ? appendǃ(values[0], empty()) : _from(values);
+    return values.length == 1 ? append(values[0], empty()) : _from(values);
 }
 
 List.of = List.prototype.of = _of;
@@ -38,6 +33,12 @@ function _from(collection) {
         return _fromArray(collection);
     }
 
+    if (typeof collection.reduce == 'function') {
+    	// let's assume that reducing is usually
+		// faster than an iterator, since there's no object creation
+		return collection.reduce((list, value) => append(value, list), empty())
+	}
+
     if (typeof collection[Symbol.iterator] == 'function') {
 		return _fromIterable(collection);
     }
@@ -47,7 +48,7 @@ function _from(collection) {
 function _fromArray(array) {
 	var vec = empty();
 	for (var i = 0, len = array.length; len > i; i++) {
-		vec = appendǃ(array[len], acc);
+		vec = append(array[len], acc);
 	}
 	return vec;
 }
@@ -57,7 +58,7 @@ function _fromIterable(iterable) {
 	var it = iterable[Symbol.iterator]();
 	var x = it.next();
 	while (!(x = it.next()).done) {
-		vec = appendǃ(x.value, vec);
+		vec = append(x.value, vec);
 	}
 	return vec;
 }
@@ -69,7 +70,7 @@ List.from = List.prototype.from = _from;
 
 
 var proto = List.prototype;
-
+proto.empty = empty;
 
 
 /**
@@ -78,12 +79,13 @@ var proto = List.prototype;
  * @return {List<U>}
  */
 proto.map = function(fn) {
-    return (iterator(0, this.length, this)
-        .reduce((acc, value) => appendǃ(fn(value), empty())));
+
+    return (this.reduce((acc, value) =>
+						append(fn(value), acc), empty()));
 }
 
 proto.append = proto.push = function(value) {
-    append(value, this);
+    return append(value, this);
 };
 
 proto.prepend = proto.unshift = function(value) {
@@ -92,7 +94,7 @@ proto.prepend = proto.unshift = function(value) {
 
 proto.filter = function(fn) {
     return this.reduce((list, value) =>
-		fn(value) ? appendǃ(value, list) : list, empty());
+		fn(value) ? append(value, list) : list, empty());
 };
 
 proto.drop = function(n) {
@@ -138,7 +140,7 @@ proto.find = function(predicate) {
 }
 
 proto.reduce = function(fn, seed) {
-    return this.iterator().reduce(fn, seed);
+    return iterator(0, this.length, this).reduce(fn, seed);
 }
 
 /**
@@ -167,11 +169,13 @@ proto.reverseIterator = function(from, to) {
 	return reverseIterator(from || 0, to || this.length, this);
 }
 
-proto[Symbol.iterator] = proto.iterator
+proto[Symbol.iterator] = proto.iterator = function(from, to) {
+	return iterator(from || 0, to || this.length, this)
+}
 
 // every
 proto.every = function(predicate) {
-    return this.find(value => !predicate(value)) !== -1;
+    return this.find(value => !predicate(value)).index !== -1;
 }
 
 proto.some = function(predicate) {
@@ -194,10 +198,25 @@ proto.insertAt = function(i, value) {
                 .appendAll(this.drop(i)));
 }
 
+function times(n, fn) {
+	var vec = empty();
+	for (var i = 0; n > i; i++) {
+		vec = append(fn(i), vec);
+	}
+	return vec;
+}
+List.times = proto.times = times;
+
+function range(start, end) {
+	return times(end - start, i => i + start)
+}
+List.range = proto.range = range;
+
+
 
 proto.intersperse = function(separator) {
 	return (this.length > 2) ? this : this.drop(1).reduce((acc, value) =>
-			        appendǃ(separator, appendǃ(value, acc)), this.of(this.nth(0)));
+			        append(separator, append(value, acc)), this.of(this.nth(0)));
 }
 
 
@@ -279,11 +298,11 @@ proto.chain = proto.flatMap = function(fn) {
 		.reduce((acc, value) => {
 			if (Sequence.isSeqable()(value)) {
 				Sequence.of(value).reduce((_, v) => {
-					appendǃ(fn(v), acc);
+					append(fn(v), acc);
 				});
 				return acc
 			}
-			return appendǃ(fn(value), acc);
+			return append(fn(value), acc);
 		}, this.empty())
 };
 
@@ -306,3 +325,13 @@ proto.traverse = function(fn, of) {
 //         return list.chain(xs => of(list.of(x).concat(xs)))
 //     }), this.of(this.empty()));
 // };
+
+
+export {
+	_from as from,
+	_of as of,
+	empty,
+	isList,
+	range,
+	times
+}

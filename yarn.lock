@@ -1558,9 +1558,9 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-lib-rrbit@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/lib-rrbit/-/lib-rrbit-1.0.1.tgz#8f676c57e0c4a62e7f7d7806267aae34ab40fb4d"
+lib-rrbit@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/lib-rrbit/-/lib-rrbit-1.0.4.tgz#1a18edf694ecb01c406eba6b829e8d5e2779f11c"
 
 load-json-file@^1.0.0:
   version "1.1.0"
