@@ -89,7 +89,11 @@ proto.append = proto.push = function(value) {
 };
 
 proto.prepend = proto.unshift = function(value) {
-    return prepend(value, this);
+	//rrbit#prepend is a little cranky right now
+	// better to be accurate than fast
+    // return prepend(value, this);
+	
+	return this.of(value).appendAll(this);
 };
 
 proto.filter = function(fn) {
@@ -117,13 +121,16 @@ proto.nth = proto.get = function(i, notFound) {
   return nth(i, this, notFound);
 };
 
+// conventions seem to dictate this be named 'set'
+// but update seems more semantically correct. 
+// need to track community demand...
 proto.update = function(i, value) {
     return update(i, value, this);
 };
 
 proto.slice = function(from, to) {
     if (typeof from == 'undefined') from = 0;
-	if (typeof to == 'undefined') to = len;
+	if (typeof to == 'undefined') to = this.length;
     if (0 > to) to += this.length;
     if (0 > from) from += this.length;
     if (from > to) return empty();
@@ -203,7 +210,7 @@ proto.removeAt = function(i) {
 }
 
 proto.remove = function(value) {
-    var i = this.find(value).index;
+    var i = this.find(val => val === value).index;
 	return i === -1 ? this : this.removeAt(i, value);
 
 }
@@ -344,14 +351,14 @@ proto.traverse = function(fn, of) {
     return this.map(fn).sequence(of);
 };
 // todo: figure out this thing ???
-// proto.sequence = function(of) {
+proto.sequence = function(of) {
 //     this.foldr((value, list) => value.chain(x => {
 //         if (list.length === 0)
 //             return of(x);
 //
 //         return list.chain(xs => of(list.of(x).concat(xs)))
 //     }), this.of(this.empty()));
-// };
+};
 
 
 export {

@@ -35,6 +35,31 @@ test('get', () => {
 	}
 });
 
+test('update', () => {
+	var vec = List.range(0, 1000)
+
+	vec = vec.update(500, "boo!");
+	expect(vec.length).toEqual(1000);
+
+	for (var i = 0; 1000 > i; i++) {
+		if (i == 500)
+			expect(vec.get(i)).toEqual('boo!')
+		else
+			expect(vec.get(i)).toEqual(i)
+	}
+});
+
+test('prepend', () => {
+	var vec = List.range(0, 1000)
+
+	vec = vec.prepend(1001)
+	expect(vec.length).toEqual(1001);
+	expect(vec.get(0)).toEqual(1001)
+
+	for (var i = 1; 1000 > i; i++) {
+		expect(vec.get(i)).toEqual(i - 1)
+	}
+});
 
 
 test('map', () => {
@@ -95,7 +120,7 @@ test('drop', () => {
 
 });
 
-test('removeAt', () => {
+test('removeAt / remove', () => {
 	var vec = List.range(0, 1000)
 
 	var vec2 = vec.removeAt(500);
@@ -103,6 +128,12 @@ test('removeAt', () => {
 	expect(vec2.nth(500)).toEqual(501)
 	expect(vec2.nth(501)).toEqual(502)
 	expect(vec2.length).toEqual(999)
+
+	var vec3 = vec.remove(500);
+	expect(vec3.nth(499)).toEqual(499)
+	expect(vec3.nth(500)).toEqual(501)
+	expect(vec3.nth(501)).toEqual(502)
+	expect(vec3.length).toEqual(999)
 //
 });
 
