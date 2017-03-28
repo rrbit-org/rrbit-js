@@ -1,5 +1,6 @@
 import buble from 'rollup-plugin-buble';
 import resolve from 'rollup-plugin-node-resolve'
+import cleanup from 'rollup-plugin-cleanup'
 
 export default  {
 	entry: 'src/index.js',
@@ -16,7 +17,8 @@ export default  {
 				// dangerousForOf: true
 				forOf: false
 			}
-		})
+		}),
+		cleanup()
 	],
 	format: 'cjs',
 	dest: 'lib/index.cjs.js'

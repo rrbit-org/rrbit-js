@@ -1,7 +1,7 @@
 import * as LinkedList from './builder/SinglyLinkedList';
-import * as SequenceRunner from './builder/Seq'
+import * as Sequence from './builder/Seq'
 import lib from 'lib-rbbit';
-import {isVector} from './Vector';
+import {isList} from './_common';
 
 /**
  * an iterator of iterators. Builders allow for higher performance
@@ -25,10 +25,10 @@ proto.and = function (singleValue) {
 
 proto.andAll = function(iterable) {
     if (this.accumulator) {
-        this.sequences.push(SequenceRunner.of(this.accumulator))
+        this.sequences.push(Sequence.of(this.accumulator))
         this.accumulator = null;
     }
-    this.sequences.push(SequenceRunner.of(iterable));
+    this.sequences.push(Sequence.of(iterable));
     return this;
 }
 

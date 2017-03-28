@@ -26,14 +26,14 @@
         * [ ] passes all tests
     * [x] find / includes / indexOf
         * [ ] passes all tests
-    * [x] concat / appendAll
+    * [ ] concat / appendAll
         * [ ] passes all tests
-        * [ ] concats 2 vectors
-        * [ ] concats an array
-        * [ ] concats an iterable
+        * [x] concats 2 vectors
+        * [x] concats an array
+        * [x] concats an iterable
     * short circuit-ing
-        * [ ] every
-        * [ ] some
+        * [x] every
+        * [x] some
         * [x] find
 
     
@@ -59,14 +59,15 @@
     * fromIndex
 
 * fantasyland compliance
-    * [ ] applicative
-    * [ ] chain
-    * [ ] foldable
-    * [ ] functor
-    * [ ] monad
-    * [ ] monoid
-    * [ ] semigroup
+    * [x] applicative
+    * [x] chain
+    * [x] foldable
+    * [x] functor
+    * [x] monad
+    * [x] monoid
+    * [x] semigroup
     * [ ] traversable
+    * [ ] sequence
     
 * documentation
     * api docs

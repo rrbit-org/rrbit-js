@@ -20,7 +20,7 @@ export function fromArray(arr) {
 	return list;
 }
 
-export function isList(list) {
+export function isLinkedList(list) {
 	return list instanceof SinglyLinkedList;
 }
 

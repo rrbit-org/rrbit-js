@@ -1,4 +1,4 @@
-import {empty, of as one} from './Vector'
+import {empty, of as one} from './List'
 
 
 test('canary in the coalmine', () => {

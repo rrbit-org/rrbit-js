@@ -1,8 +1,8 @@
-import {from, of, isVector, empty} from './Vector'
+import {from, of, isList, empty} from './List'
 
 export {
 	from,
 	of,
-	isVector,
+	isList,
 	empty
 }
