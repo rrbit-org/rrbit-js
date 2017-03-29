@@ -6,7 +6,7 @@ const {
 	take,
 	update,
 	append,
-	appendǃ, //a little unsafe ATM
+	appendǃ,
 	prepend,
 	appendAll,
 	empty,
@@ -36,7 +36,7 @@ function _from(collection) {
     if (typeof collection.reduce == 'function') {
     	// let's assume that reducing is usually
 		// faster than an iterator, since there's no object creation
-		return collection.reduce((list, value) => append(value, list), empty())
+		return collection.reduce((list, value) => appendǃ(value, list), empty())
 	}
 
     if (typeof collection[Symbol.iterator] == 'function') {
@@ -48,7 +48,7 @@ function _from(collection) {
 function _fromArray(array) {
 	var vec = empty();
 	for (var i = 0, len = array.length; len > i; i++) {
-		vec = append(array[len], acc);
+		vec = appendǃ(array[len], acc);
 	}
 	return vec;
 }
@@ -58,7 +58,7 @@ function _fromIterable(iterable) {
 	var it = iterable[Symbol.iterator]();
 	var x = it.next();
 	while (!(x = it.next()).done) {
-		vec = append(x.value, vec);
+		vec = appendǃ(x.value, vec);
 	}
 	return vec;
 }
@@ -81,7 +81,7 @@ proto.empty = empty;
 proto.map = function(fn) {
 
     return (this.reduce((acc, value) =>
-						append(fn(value), acc), empty()));
+					appendǃ(fn(value), acc), empty()));
 }
 
 proto.append = proto.push = function(value) {
@@ -179,7 +179,7 @@ proto.appendAll = proto.concat = function(iterable) {
 	// until lib-rrbit get's better
 	// return appendAll(this, _from(iterable));
 	
-	var addIn = (list, value) => append(value, list);
+	var addIn = (list, value) => appendǃ(value, list);
 	var vec = this.reduce(addIn, empty());
 	
 	return Sequence.of(iterable).reduce(addIn, vec)
