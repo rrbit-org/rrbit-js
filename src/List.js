@@ -224,7 +224,7 @@ proto.insertAt = function(i, value) {
 function times(n, fn) {
 	var vec = empty();
 	for (var i = 0; n > i; i++) {
-		vec = append(fn(i), vec);
+		vec = appendǃ(fn(i), vec);
 	}
 	return vec;
 }
@@ -241,8 +241,8 @@ proto.intersperse = function(separator) {
 	return (this.length < 2) ? 
 		this : 
 		this.iterator(1, this.length)
-			.reduce((acc, value) => 
-				append(separator, append(value, acc)), this.take(1));
+			.reduce((acc, value) =>
+				appendǃ(separator, append(value, acc)), appendǃ(this.nth(0), empty()));
 }
 
 proto.join = function(separator) {
@@ -250,7 +250,7 @@ proto.join = function(separator) {
 	if (this.length == 1) return "" + this.nth(0);
 	return (this.iterator(1, this.length)
 				.reduce((acc, value) => 
-				acc + separator + value, this.nth(0) + ""))
+						acc + separator + value, this.nth(0) + ""))
 }
 
 
