@@ -1,8 +1,6 @@
-import {from, of, isList, empty} from './List'
+import {List} from './List'
 
 export {
-	from,
-	of,
-	isList,
-	empty
+	List,
+	List as default
 }

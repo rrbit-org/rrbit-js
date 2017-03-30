@@ -1,6 +1,6 @@
 {
   "name": "rrbit-js",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "persistent collections in js using relaxed-radix-balancing",
   "main": "lib/index.cjs.js",
   "module": "src/index.js",
@@ -19,7 +19,7 @@
     "rollup-plugin-node-resolve": "^2.0.0"
   },
   "scripts": {
-    "test": "./node_modules/.bin/jest",
+    "test": "./node_modules/.bin/jest ",
     "test:watch": "./node_modules/.bin/jest",
     "build": "yarn run build:cjs",
     "build:cjs": "./node_modules/.bin/rollup --config rollup.prod.js"

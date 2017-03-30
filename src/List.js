@@ -1,5 +1,5 @@
 import {List, isList, rrbit} from './_common'
-import * as Sequence from './builder/Seq';
+import {Builder, Sequence} from './Builder'
 const {
 	nth,
 	drop,
@@ -24,6 +24,7 @@ function _of(...values) {
 }
 
 List.of = List.prototype.of = _of;
+List.Builder = List.prototype.Builder = Builder;
 
 function _from(collection) {
     if (isList(collection))
@@ -328,16 +329,11 @@ proto.ap = function ap(values) {
  */
 
 proto.chain = proto.flatMap = function(fn) {
-	return iterator(0, this.length, this)
-		.reduce((acc, value) => {
-			if (Sequence.isSeqable()(value)) {
-				Sequence.of(value).reduce((_, v) => {
-					append(fn(v), acc);
-				});
-				return acc
-			}
-			return append(fn(value), acc);
-		}, this.empty())
+	function _addIn(list, value) {
+		return Sequence.isSeqable(value) ? Sequence.of(value).reduce(_addIn, list) : appendǃ(fn(v), list)
+	}
+
+	return this.reduce(_addIn, empty())
 };
 
 
@@ -362,10 +358,5 @@ proto.sequence = function(of) {
 
 
 export {
-	_from as from,
-	_of as of,
-	empty,
-	isList,
-	range,
-	times
+	List
 }

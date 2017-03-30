@@ -1,4 +1,4 @@
-import * as List from './List'
+import {List} from './List'
 
 
 test('canary in the coalmine', () => {
