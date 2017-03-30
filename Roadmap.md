@@ -37,21 +37,19 @@
         * [x] some passes all tests
 
     
-* js builder api
-    * add single element
-    * add from native array
-    * add from iterable
-    * add from vector
-    * lazy transforms
-        * map
-        * filter
-        * reduce
-        * transduce
-        * flatMap
+* [ ] js builder api
+    * [x] add single element
+    * [x] add from native array
+    * [x] add from iterable
+    * [x] add from vector
+    * [x] lazy transforms
+        * [x] map
+        * [x] filter
+        * [x] reduce / scan
     * output
-        * to vector
-        * to native array
-        * to lazy iterable
+        * [x] to vector
+        * [x] to native array
+        * [ ] to lazy iterable
         
 * generation api
     * [x] range - populate with a range of numbers
