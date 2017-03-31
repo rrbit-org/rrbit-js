@@ -6,6 +6,7 @@ var Imm = require('immutable');
 var seamless = require('seamless-immutable');
 var mori = require('mori');
 var iam = require('immutable-array-methods');
+var _ = require('lodash')
 
 
 function range(size) {
@@ -66,13 +67,17 @@ function buildSuite(a) {
 				.map(add1)
 				.reduce(sum, 0)
 		})
+		.add('lodash native', function() {
+			var result = _.reduce(_.map(_.filter(a, even), add1), sum, 0)
+
+		})
 	)
 }
 
 
 // run(buildSuite(range(10)))
-run(buildSuite(range(100)))
+// run(buildSuite(range(100)))
 // run(buildSuite(range(1000)))
-// run(buildSuite(range(10000)))
+run(buildSuite(range(10000)))
 // run(buildSuite(range(100000)))
 // run(buildSuite(range(1000000)))
