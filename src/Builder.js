@@ -8,6 +8,7 @@ import {
 	drop,
 	dropWhile,
 	map,
+	filter,
 	scan,
 	unique,
 	intersperse,
@@ -41,6 +42,7 @@ proto.appendAll = function(collection) {
 		this.accumulator = null;
 	}
 	this.sequences.add(collection);
+
 	return this;
 }
 
@@ -53,6 +55,7 @@ proto.appendAll = function(collection) {
 
 proto.prepend = function(item) {
     this.pre = LinkedList.of(item, this.pre);
+	return this;
 }
 
 
@@ -62,21 +65,27 @@ function addToPipe(xf, pipe) {
 }
 proto.filter = function(fn) {
     this.pipe = addToPipe(filter(fn), this.pipe)
+	return this;
 }
 proto.drop = function(n) {
 	this.pipe = addToPipe(drop(n), this.pipe)
+	return this;
 }
 proto.dropWhile = function(fn) {
 	this.pipe = addToPipe(dropWhile(fn), this.pipe)
+	return this;
 }
 proto.take = function(nn) {
 	this.pipe = addToPipe(take(n), this.pipe)
+	return this;
 }
 proto.takeWhile = function(fn) {
 	this.pipe = addToPipe(takeWhile(fn), this.pipe)
+	return this;
 }
 proto.map = function(fn) {
 	this.pipe = addToPipe(map(fn), this.pipe)
+	return this;
 }
 // proto.cat = () => {}
 // proto.mapcat = () => {}
@@ -85,12 +94,18 @@ proto.map = function(fn) {
 // }
 proto.scan = function(fn, seed) {
 	this.pipe = addToPipe(scan(fn, seed), this.pipe)
+	return this;
+}
+proto.reduce = function(fn, seed) {
+	return this.into(fn, seed);
 }
 proto.unique = function(fn) {
 	this.pipe = addToPipe(unique(fn), this.pipe)
+	return this;
 }
 proto.intersperse = function(separator) {
 	this.pipe = addToPipe(intersperse(separator), this.pipe)
+	return this;
 }
 
 

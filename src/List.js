@@ -49,7 +49,7 @@ function _from(collection) {
 function _fromArray(array) {
 	var vec = empty();
 	for (var i = 0, len = array.length; len > i; i++) {
-		vec = appendǃ(array[len], acc);
+		vec = appendǃ(array[len], vec);
 	}
 	return vec;
 }

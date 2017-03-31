@@ -62,6 +62,8 @@ function compose(a,b,c,d,e,f,g,h,i,j) {
 	return args.reduce((f, func) => (value) => f(fn(value)), args.shift())
 }
 
+const and = (a, b) => (value) => a(value) && b(value)
+
 
 class ITransformer {
 	init() {
@@ -95,6 +97,10 @@ class Mapper extends ITransformer {
 		super();
 		this.fn = fn;
 		this.xf = xf;
+		// if (xf instanceof Mapper) {
+		// 	this.xf = xf.xf;
+		// 	this.fn = combine(xf.fn, fn);
+		// }
 	}
 	step(result, value) {
 		return this.xf.step(result, this.fn(value))
@@ -110,6 +116,11 @@ class Filter extends ITransformer {
 		super();
 		this.predicate = predicate;
 		this.xf = xf;
+		// optimize by combining filters
+		// if (xf instanceof Filter) {
+		// 	this.predicate = and(predicate, xf.predicate)
+		// 	this.xf = xf.xf
+		// }
 	}
 	step(result, value) {
 		return this.predicate(value) ? this.xf.step(result, value) : result
@@ -222,7 +233,19 @@ class Intersperse extends ITransformer {
 const intersperse = Intersperse.create
 // class PartitionBy extends ITransformer {}
 // class PartitionAll extends ITransformer {}
-// class Cat extends ITransformer {}
+class Cat extends ITransformer {
+	static create() {
+		return (xf) = new Cat(xf);
+	}
+	constructor(xf) {
+		this.rxf = new PreservingReduce(xf)
+	}
+	step(result, input) {
+		return this.reduce(xrf, result, input)
+	}
+	reduce(xf, result, value) {}
+}
+class PreservingReduce {}
 // class MapCat extends ITransformer {}
 
 class Keep extends ITransformer {
@@ -340,6 +363,8 @@ class Sequence {
 			this.type = "Sequence"
 		} else if (ReSequence.isReSequence(list)) {
 			this.type = "Sequence"
+		} else if (typeof list['@@transducer/reduce'] == 'function') {
+			//
 		} else if (typeof list == 'string') {
 			this.type = "Unknown"
 		} else if (isIterable(list)) {
