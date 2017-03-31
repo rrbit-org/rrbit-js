@@ -1,6 +1,7 @@
 latest performance results
 
 
+```
 filter-map-reduce 10
 |------------------|-------------------|------------------|
 |rbbit builder     |  283551.59 op/s ± |  2.12% (81 samples)|
@@ -60,3 +61,4 @@ filter-map-reduce 1000k
 |seamless-immutable|   0.68 op/s ± |  3.64% (6 samples)|
 |native            |   1.22 op/s ± |  2.68% (8 samples)|
 -------------------|----------------|--------------------|
+```
