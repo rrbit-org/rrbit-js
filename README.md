@@ -1,4 +1,6 @@
 # rrbit-js
+
+[![Join the chat at https://gitter.im/rrbit-js/Lobby](https://badges.gitter.im/rrbit-js/Lobby.svg)](https://gitter.im/rrbit-js/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 <a href="https://github.com/wishfoundry/rrbit">
 	<img width="82" height="82" alt="rrbit" src="https://raw.github.com/wishfoundry/rrbit/master/docs/logo-small.png">
 </a>
