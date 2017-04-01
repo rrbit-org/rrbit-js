@@ -2,7 +2,7 @@
 <img width="343" height="80" alt="rrbit" src="https://raw.githubusercontent.com/rrbit-org/rrbit-js/master/docs/header.png">
 
 
-[![Build Status](https://travis-ci.org/crrbit-org/rrbit-js.svg?branch=master)](https://travis-ci.org/rrbit-org/rrbit-js)
+[![Build Status](https://travis-ci.org/rrbit-org/rrbit-js.svg?branch=master)](https://travis-ci.org/rrbit-org/rrbit-js)
 [![Join the chat at https://gitter.im/rrbit-js/Lobby](https://badges.gitter.im/rrbit-js/Lobby.svg)](https://gitter.im/rrbit-js/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 
@@ -15,6 +15,7 @@ see the [roadmap](https://github.com/rrbit-org/lib-rrbit/blob/master/Roadmap.md)
 
 
 
+## Interoperability
 <a href="https://github.com/fantasyland/fantasy-land">
 	<img width="40" height="40" alt="Fantasy Land" src="https://raw.github.com/puffnfresh/fantasy-land/master/logo.png">
 </a>
