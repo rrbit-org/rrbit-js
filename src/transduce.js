@@ -233,18 +233,18 @@ class Intersperse extends ITransformer {
 const intersperse = Intersperse.create
 // class PartitionBy extends ITransformer {}
 // class PartitionAll extends ITransformer {}
-class Cat extends ITransformer {
-	static create() {
-		return (xf) = new Cat(xf);
-	}
-	constructor(xf) {
-		this.rxf = new PreservingReduce(xf)
-	}
-	step(result, input) {
-		return this.reduce(xrf, result, input)
-	}
-	reduce(xf, result, value) {}
-}
+// class Cat extends ITransformer {
+// 	static create() {
+// 		return (xf) = new Cat(xf);
+// 	}
+// 	constructor(xf) {
+// 		this.rxf = new PreservingReduce(xf)
+// 	}
+// 	step(result, input) {
+// 		return this.reduce(xrf, result, input)
+// 	}
+// 	reduce(xf, result, value) {}
+// }
 class PreservingReduce {}
 // class MapCat extends ITransformer {}
 
