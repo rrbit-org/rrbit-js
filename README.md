@@ -5,9 +5,9 @@
 [![Join the chat at https://gitter.im/rrbit-js/Lobby](https://badges.gitter.im/rrbit-js/Lobby.svg)](https://gitter.im/rrbit-js/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 
-A lightwieght(12kb), fast Immutable vectors/lists/arrays library using techniques 
+A lightwieght(12kb), fast Immutable collections (vectors/lists/arrays) library using techniques 
 described in the [2015 Paper](https://pdfs.semanticscholar.org/b26a/3dc9050f54a37197ed44711c0e42063e9b96.pdf)
-for Relaxed Radix Balanced(RRB) trees and some unique enhancements
+for Relaxed Radix Balanced(RRB) vectors and some unique enhancements
 
 see the [roadmap](https://github.com/rrbit-org/lib-rrbit/blob/master/Roadmap.md) for details on current progress 
 
