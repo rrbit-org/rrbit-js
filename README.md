@@ -1,9 +1,10 @@
-# rrbit-js
+
+<a href="https://github.com/wishfoundry/rrbit">
+	<img width="343" height="80" alt="rrbit" src="https://raw.githubusercontent.com/rrbit-org/rrbit-js/master/docs/header.png">
+</a>
 
 [![Join the chat at https://gitter.im/rrbit-js/Lobby](https://badges.gitter.im/rrbit-js/Lobby.svg)](https://gitter.im/rrbit-js/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-<a href="https://github.com/wishfoundry/rrbit">
-	<img width="82" height="82" alt="rrbit" src="https://raw.github.com/wishfoundry/rrbit/master/docs/logo-small.png">
-</a>
+
 
 A lightwieght(12kb), fast Immutable vectors/lists/arrays library using techniques 
 described in the [2015 Paper](https://pdfs.semanticscholar.org/b26a/3dc9050f54a37197ed44711c0e42063e9b96.pdf)
