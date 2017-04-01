@@ -1,7 +1,6 @@
 
-<a href="https://github.com/wishfoundry/rrbit">
-	<img width="343" height="80" alt="rrbit" src="https://raw.githubusercontent.com/rrbit-org/rrbit-js/master/docs/header.png">
-</a>
+<img width="343" height="80" alt="rrbit" src="https://raw.githubusercontent.com/rrbit-org/rrbit-js/master/docs/header.png">
+
 
 [![Join the chat at https://gitter.im/rrbit-js/Lobby](https://badges.gitter.im/rrbit-js/Lobby.svg)](https://gitter.im/rrbit-js/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -18,7 +17,7 @@ performance measurements can be found on the [lib-rrbit page](https://github.com
 
 
 <a href="https://github.com/fantasyland/fantasy-land">
-	<img width="82" height="82" alt="Fantasy Land" src="https://raw.github.com/puffnfresh/fantasy-land/master/logo.png">
+	<img width="40" height="40" alt="Fantasy Land" src="https://raw.github.com/puffnfresh/fantasy-land/master/logo.png">
 </a>
 
 rrbit-js also implements [Fantasy Land](https://github.com/fantasyland/fantasy-land) interfaces for 
