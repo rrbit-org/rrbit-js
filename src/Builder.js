@@ -26,13 +26,13 @@ Builder.isBuilder = isBuilder
 
 
 
-proto.append = function (singleValue) {
+proto.push = proto.append = function (singleValue) {
 
 	rrbit.appendǃ((this.accumulator || (this.accumulator = rrbit.empty())), singleValue)
 	return this;
 }
 
-proto.appendAll = function(collection) {
+proto.concat = proto.appendAll = function(collection) {
 	if (!this.sequences) {
 		this.sequences = new ReSequence([]);
 
@@ -53,7 +53,7 @@ proto.appendAll = function(collection) {
 
 
 
-proto.prepend = function(item) {
+proto.unshift = proto.prepend = function(item) {
     this.pre = LinkedList.of(item, this.pre);
 	return this;
 }
@@ -97,7 +97,11 @@ proto.scan = function(fn, seed) {
 	return this;
 }
 proto.reduce = function(fn, seed) {
-	return this.into(fn, seed);
+	if (this.pre) {
+		this.sequences.pre(this.pre)
+		this.pre = null
+	}
+	return transduce(this.sequences, this.pipe, fn, seed)
 }
 proto.unique = function(fn) {
 	this.pipe = addToPipe(unique(fn), this.pipe)
@@ -115,24 +119,17 @@ proto.intersperse = function(separator) {
 //to collection
 
 // proto.toSet = () => {}
-proto.into = function(reducer, seed) {
-	if (this.pre) {
-		this.sequences.pre(this.pre)
-		this.pre = null
-	}
-	return transduce(this.sequences, this.pipe, reducer, seed)
-}
 
 proto.toList = function() {
     const intoVector = (list, item) => rrbit.appendǃ(item, list);
     
-	return this.into(intoVector, rrbit.empty())
+	return this.reduce(intoVector, rrbit.empty())
 }
 
 proto.toArray = function() {
 	const intoArray = (list, item) => list.push(item);
 	
-	return this.into(intoArray, [])
+	return this.reduce(intoArray, [])
 }
 
 //to string
@@ -140,15 +137,15 @@ proto.join = (separator) => {
     if (separator) {
         this.intersperse(separator)
     }
-	return this.into((prev, next) => prev + next, "")
+	return this.reduce((prev, next) => prev + next, "")
 }
 
 //to boolean
-proto.any = function(predicate) {
-	this.into((prev, next) => prev || predicate(next), false)
+proto.some = function(predicate) {
+	this.reduce((prev, next) => prev || predicate(next), false)
 }
-proto.all = function(predicate) {
-	this.into((prev, next) => prev && predicate(next), true)
+proto.every = function(predicate) {
+	this.reduce((prev, next) => prev && predicate(next), true)
 }
 
 

@@ -1,4 +1,4 @@
-import {List, isList, rrbit} from './_common'
+import {List, isList, rrbit, identity} from './_common'
 import {Builder, Sequence} from './Builder'
 const {
 	nth,
@@ -25,6 +25,9 @@ function _of(...values) {
 
 List.of = List.prototype.of = _of;
 List.Builder = List.prototype.Builder = Builder;
+List.prototype.toBuilder = function() {
+	return Builder().addAll(this)
+}
 
 function _from(collection) {
     if (isList(collection))
@@ -254,6 +257,10 @@ proto.join = function(separator) {
 						acc + separator + value, this.nth(0) + ""))
 }
 
+proto.flatten = function() {
+	this.flatMap(x => x)
+}
+
 
 // = fantasyland compliance ========================================================
 
@@ -330,7 +337,10 @@ proto.ap = function ap(values) {
 
 proto.chain = proto.flatMap = function(fn) {
 	function _addIn(list, value) {
-		return Sequence.isSeqable(value) ? Sequence.of(value).reduce(_addIn, list) : appendǃ(fn(v), list)
+		//case 1: value is function - TODO: NOT COVERED
+		//case 2: value is collection/iterable
+		//case 3: value is a primitive
+		return Sequence.isCollection(value) ? Sequence.of(value).reduce(_addIn, list) : appendǃ(fn(value), list)
 	}
 
 	return this.reduce(_addIn, empty())
@@ -342,19 +352,27 @@ proto.chain = proto.flatMap = function(fn) {
 // Semigroup -> List#concat
 // Foldable -> List#reduce
 
-
-proto.traverse = function(fn, of) {
-    return this.map(fn).sequence(of);
+proto.traverse = function(applic, of) {
+	this.reduce((list, next) =>
+		of(next).map(x => y => y.concat([x])).ap(list), applic(this.empty))
 };
-// todo: figure out this thing ???
+
 proto.sequence = function(of) {
+	this.traverse(of, x => x)
+}
+
+// proto.traverse = function(fn, of) {
+//     return this.map(fn).sequence(of);
+// };
+// todo: figure out this thing ???
+// proto.sequence = function(of) {
 //     this.foldr((value, list) => value.chain(x => {
 //         if (list.length === 0)
 //             return of(x);
 //
 //         return list.chain(xs => of(list.of(x).concat(xs)))
 //     }), this.of(this.empty()));
-};
+// };
 
 
 export {
