@@ -11,8 +11,6 @@ for Relaxed Radix Balanced(RRB) trees and some unique enhancements
 
 see the [roadmap](https://github.com/rrbit-org/lib-rrbit/blob/master/Roadmap.md) for details on current progress 
 
-performance measurements can be found on the [lib-rrbit page](https://github.com/rrbit-org/lib-rrbit)
-
 
 
 

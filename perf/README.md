@@ -37,3 +37,7 @@ lodash native     :  260031.88 op/s ±   1.90% (87 samples)
 -------------------------------------------------------
 
 ```
+
+
+other performance measurements can be found on the [lib-rrbit page](https://github.com/rrbit-org/lib-rrbit)
+
