@@ -133,7 +133,7 @@ proto.toArray = function() {
 }
 
 //to string
-proto.join = (separator) => {
+proto.join = function(separator) {
     if (separator) {
         this.intersperse(separator)
     }
