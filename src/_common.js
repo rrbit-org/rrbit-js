@@ -28,5 +28,6 @@ export function isBuilder(maybe) {
 }
 
 const rrbit = setup(factory);
-
-export { rrbit }
+const identity = x => x 
+	
+export { rrbit, identity }
