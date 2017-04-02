@@ -1,4 +1,6 @@
 import {List} from './List'
+import * as Monad from 'fantasy-land/laws/monad'
+import * as Traversable from 'fantasy-land/laws/traversable'
 
 const aRange = len => Array.apply(0, Array(len)).map((_, i) => i);
 
@@ -211,6 +213,11 @@ test('flatMap', () => {
 	}
 });
 
-// test('ap', () => {});
-// test('traverse', () => {});
-// test('sequence', () => {});
+
+test('traverse/sequence', () => {
+	Traversable.composition(List);
+	Traversable.naturality(List);
+	Traversable.identity(List);
+
+
+});

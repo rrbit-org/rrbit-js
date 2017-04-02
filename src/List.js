@@ -363,19 +363,6 @@ proto.sequence = function(of) {
 	this.traverse(of, x => x)
 }
 
-// proto.traverse = function(fn, of) {
-//     return this.map(fn).sequence(of);
-// };
-// todo: figure out this thing ???
-// proto.sequence = function(of) {
-//     this.foldr((value, list) => value.chain(x => {
-//         if (list.length === 0)
-//             return of(x);
-//
-//         return list.chain(xs => of(list.of(x).concat(xs)))
-//     }), this.of(this.empty()));
-// };
-
 
 export {
 	List
