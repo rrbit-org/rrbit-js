@@ -11,6 +11,8 @@ import {
 	filter,
 	scan,
 	unique,
+	mapCat,
+	partitionBy,
 	intersperse,
 	ReSequence,
 	Sequence
@@ -47,12 +49,6 @@ proto.concat = proto.appendAll = function(collection) {
 }
 
 
-
-
-
-
-
-
 proto.unshift = proto.prepend = function(item) {
     this.pre = LinkedList.of(item, this.pre);
 	return this;
@@ -87,11 +83,27 @@ proto.map = function(fn) {
 	this.pipe = addToPipe(map(fn), this.pipe)
 	return this;
 }
-// proto.cat = () => {}
-// proto.mapcat = () => {}
-// proto.flatten = function(fn) {
-// 	this.pipe = addToPipe(filter(fn), this.pipe)
-// }
+
+/**
+ *
+ * @param fn - grouping function.
+ * 				returning the same value as previous extends current group
+ * 				returning any other values starts new group
+ * @return {Builder}
+ */
+proto.groupWith = function(fn) {
+	this.pipe = addToPipe(partitionBy(fn), this.pipe);
+	return this;
+}
+
+proto.flatMap = function(fn) {
+	this.pipe = addToPipe(mapCat(fn), this.pipe);
+	return this;
+}
+
+proto.flatten = function() {
+	return this.flatMap(x => x);
+}
 proto.scan = function(fn, seed) {
 	this.pipe = addToPipe(scan(fn, seed), this.pipe)
 	return this;

@@ -230,23 +230,61 @@ class Intersperse extends ITransformer {
 		return isReduced(next) ? next : this.xf.step(next, value)
 	}
 }
-const intersperse = Intersperse.create
-// class PartitionBy extends ITransformer {}
-// class PartitionAll extends ITransformer {}
-// class Cat extends ITransformer {
-// 	static create() {
-// 		return (xf) = new Cat(xf);
-// 	}
-// 	constructor(xf) {
-// 		this.rxf = new PreservingReduce(xf)
-// 	}
-// 	step(result, input) {
-// 		return this.reduce(xrf, result, input)
-// 	}
-// 	reduce(xf, result, value) {}
-// }
-class PreservingReduce {}
-// class MapCat extends ITransformer {}
+const intersperse = Intersperse.create;
+
+class PartitionBy extends ITransformer {
+	static create(fn) {
+		return (next) => new PartitionBy(fn, next)
+	}
+	constructor(fn, xf) {
+		this.fn = fn;
+		this.xf = xf;
+		this.group = [];
+		this.previous = void 0;
+	}
+	step(result, value) {
+		if (this.previous === this.fn(value)) {
+			this.group.push(value)
+		} else {
+			var group = this.group = [];
+			result = this.xf.step(result, group);
+			if(!isReduced(result)) {
+				group.push(value)
+			}
+		}
+		return result
+	}
+	result(result) {
+		var group = this.group;
+		if(group && group.length) {
+			this.group = [];
+			result = this.xf.step(result, group)
+		}
+		return this.xf.result(result)
+	}
+}
+
+const partitionBy = PartitionBy.create;
+
+class MapCat extends ITransformer {
+	create(fn) {
+		return (next) => new MapCat(fn, next);
+	}
+	constructor(fn, xf) {
+		super();
+		this.fn = fn;
+		this.xf = xf;
+		this.seq = Sequence.of(null); //create once to reduce step speed
+		// this.nextStep = this.xf.step.bind(this.xf.step); // could conflict with map/filter
+	}
+	step(result, value) {
+		return (this.seq
+				.setup(value)
+				.reduce(this.xf.step.bind(this.xf.step), result));
+	}
+}
+
+const mapCat = MapCat.create;
 
 class Keep extends ITransformer {
 	static create(fn) {
@@ -304,21 +342,12 @@ class KeepIndexed extends ITransformer {
 		return this.f(this.i, value) ? result : this.xf.step(result, value);
 	}
 }
-const keepIndexed = KeepIndexed.create
+const keepIndexed = KeepIndexed.create;
 
-
-
-// function into(dest, xf, src) {
-// 	if (typeof dest == 'boolean') {}
-// 	if (typeof dest == 'string') {}
-// 	if (Array.isArray(dest)) {}
-// 	if (isList(dest)) {}
-// 	if (isLinkedList(dest)) {}
-// }
 
 function transduce(collection, xf, iterator, seed) {
 	if (!xf)
-		xf = passThru()
+		xf = passThru();
 
 	xf = xf(last(iterator)); //populate wf chain with final destination reducer
 	
@@ -353,6 +382,11 @@ class Sequence {
 	}
 
 	constructor(list) {
+		this.setup(list);
+	}
+	setup(list) {
+		this.list = list;
+
 		if (isList(list)) {
 			this.type = 'Vector';
 		} else if (Array.isArray(list)) {
@@ -369,18 +403,18 @@ class Sequence {
 			this.type = "Unknown"
 		} else if (isIterable(list)) {
 			this.type = 'Iterable';
-		} else if (typeof list == 'object') {
-			this.type = "Unknown"
 		} else {
-			this.type = "Unknown"
+			this.type = "Single"
 		}
-
-		this.list = list
 	}
 
 
 	reduce(fn, seed) {
 		return this['reduce' + this.type](fn, seed, this.list);
+	}
+
+	reduceSingle(fn, seed) {
+		return fn(seed, this.list);
 	}
 
 	reduceArray(fn, seed, array) {
@@ -479,6 +513,8 @@ export {
 	keepIndexed,
 	unique,
 	intersperse,
+	partitionBy,
+	mapCat,
 	filter,
 	map,
 	passThru,
