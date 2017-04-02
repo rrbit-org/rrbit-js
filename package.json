@@ -1,6 +1,6 @@
 {
   "name": "rrbit-js",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "persistent collections in js using relaxed-radix-balancing",
   "main": "lib/index.cjs.js",
   "module": "src/index.js",

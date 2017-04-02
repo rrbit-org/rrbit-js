@@ -1,5 +1,6 @@
 import {List} from './List'
 
+const aRange = len => Array.apply(0, Array(len)).map((_, i) => i);
 
 test('canary in the coalmine', () => {
 	expect(true).toBe(true);
@@ -162,3 +163,54 @@ test('some', () => {
 	expect(vec.some(val => val < 999)).toEqual(true)
 	expect(vec.some(val => val > 1001)).toEqual(false)
 });
+
+test('join', () => {
+	var vec = List.range(0, 10)
+	var str = vec.join('');
+	expect(str).toEqual('0123456789')
+});
+test('intersperse', () => {
+	var vec = List.range(0, 10);
+	var str = "["+ vec.join(',') + "]";
+	expect(str).toEqual('[0,1,2,3,4,5,6,7,8,9]')
+});
+
+test('flatten', () => {
+	var arr = aRange(10);
+
+	var vec = List.empty()
+				.append(arr)
+				.append(arr)
+				.append(arr)
+				.flatten();
+
+	expect(vec.length).toEqual(30);
+	var offset = 0;
+	for (var i = 0, len = vec.length; len > i; i++) {
+		if(i == 10) offset = 10;
+		if(i == 20) offset = 20;
+		expect(vec.nth(i)).toEqual(i - offset);
+	}
+});
+
+test('flatMap', () => {
+	var arr = aRange(10);
+
+	var vec = List.empty()
+		.append(arr)
+		.append(arr)
+		.append(arr)
+		.flatMap(x => x + 1);
+
+	expect(vec.length).toEqual(30);
+	var offset = 0;
+	for (var i = 0, len = vec.length; len > i; i++) {
+		if(i == 10) offset = 10;
+		if(i == 20) offset = 20;
+		expect(vec.nth(i)).toEqual((i - offset) + 1);
+	}
+});
+
+// test('ap', () => {});
+// test('traverse', () => {});
+// test('sequence', () => {});

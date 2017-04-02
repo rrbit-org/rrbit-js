@@ -254,11 +254,11 @@ proto.join = function(separator) {
 	if (this.length == 1) return "" + this.nth(0);
 	return (this.iterator(1, this.length)
 				.reduce((acc, value) => 
-						acc + separator + value, this.nth(0) + ""))
+						acc + separator + value, "" + this.nth(0)))
 }
 
 proto.flatten = function() {
-	this.flatMap(x => x)
+	return this.flatMap(x => x)
 }
 
 
@@ -340,7 +340,9 @@ proto.chain = proto.flatMap = function(fn) {
 		//case 1: value is function - TODO: NOT COVERED
 		//case 2: value is collection/iterable
 		//case 3: value is a primitive
-		return Sequence.isCollection(value) ? Sequence.of(value).reduce(_addIn, list) : appendǃ(fn(value), list)
+		return (Sequence.isCollection(value) ?
+					Sequence.of(value).reduce(_addIn, list) :
+					appendǃ(fn(value), list))
 	}
 
 	return this.reduce(_addIn, empty())

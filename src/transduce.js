@@ -346,7 +346,7 @@ class Sequence {
 			Array.isArray(maybe) ||
 			isIterable(maybe) ||
 			isLinkedList(maybe) ||
-			isSequence(maybe))
+			Sequence.isSequence(maybe))
 	}
 	static isSequence(maybe) {
 		return maybe instanceof Sequence
