@@ -46,6 +46,8 @@
         * [x] map
         * [x] filter
         * [x] reduce / scan
+        * [x] group
+        * [ ] sort
     * output
         * [x] to vector
         * [x] to native array
@@ -63,8 +65,8 @@
     * [x] monad
     * [x] monoid
     * [x] semigroup
-    * [ ] traversable
-    * [ ] sequence
+    * [x] traversable
+    * [x] sequence
     
 * documentation
     * [ ] api docs
