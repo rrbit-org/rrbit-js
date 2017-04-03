@@ -1,5 +1,5 @@
 
-<img width="343" height="80" alt="rrbit" src="https://raw.githubusercontent.com/rrbit-org/rrbit-js/master/docs/header.png">
+<img width="343" height="80" alt="rrbit" src="https://raw.githubusercontent.com/rrbit-org/rrbit-js/master/project/logo/header.png">
 
 
 [![Build Status](https://travis-ci.org/rrbit-org/rrbit-js.svg?branch=master)](https://travis-ci.org/rrbit-org/rrbit-js)
@@ -12,7 +12,7 @@ for Relaxed Radix Balanced(RRB) vectors and some unique enhancements
 
 see the [roadmap](https://github.com/rrbit-org/rrbit-js/blob/master/Roadmap.md) for details on current progress 
 
-
+[API docs](https://github.com/rrbit-org/rrbit-js/blob/master/docs/api.md) now available
 
 
 ## Interoperability
