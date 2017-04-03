@@ -26,6 +26,5 @@ rrbit-js also implements [Fantasy Land](https://github.com/fantasyland/fantasy-l
 * [x] `Semigroup`
 * [x] `Semigroup`
 * [x] `Chain` 
-* [ ] `Monad`
-* [ ] `Traversable`
+* [x] `Traversable`
 * [x] `Foldable`
