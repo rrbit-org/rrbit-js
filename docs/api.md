@@ -3,88 +3,88 @@
 
 ### List
 1. Creating Lists
-    * [empty](#List.empty)
-    * [of](#List.of)
-    * [from](#List.from)
-    * [times](#List.times)
-    * [range](#List.range)
-    * [Builder](#Builder)
-    * [toBuilder](#toBuilder)
+    * [empty](#listempty)
+    * [of](#listof)
+    * [from](#listfrom)
+    * [times](#listtimes)
+    * [range](#listrange)
+    * [Builder](#listbuilder)
+    * [toBuilder](#listtoBuilder)
 1. Reading Lists
-    * [get](#List.get)
-    * [nth](#List.nth)
-    * [indexOf](#List.indexOf)
-    * [includes](#List.includes)
-    * [find](#List.find)
-    * [iterator](#List.iterator)
-    * [reverseIterator](#List.reverseIterator)
-    * [[Symbol.iterator]](#List.[Symbol.iterator])
+    * [get](#listget)
+    * [nth](#listnth)
+    * [indexOf](#listindexOf)
+    * [includes](#listincludes)
+    * [find](#listfind)
+    * [iterator](#listiterator)
+    * [reverseIterator](#listreverseIterator)
+    * [[Symbol.iterator]](#list[Symbol.iterator])
 1. Transforming Lists
-    * [append](#List.append)
-    * [push](#List.push)
-    * [appendAll](#List.appendAll)
-    * [concat](#List.concat)
-    * [prepend](#List.prepend)
-    * [unshift](#List.unshift)
-    * [drop](#List.drop)
-    * [take](#List.take)
-    * [update](#List.update)
-    * [set](#List.set)
-    * [slice](#List.slice)
-    * [removeAt](#List.removeAt)
-    * [remove](#List.remove)
-    * [insertAt](#List.insert)
-    * [reduce](#List.reduce)
-    * [reduceRight](#List.reduceRight)
-    * [foldl](#List.foldl)
-    * [foldr](#List.foldr)
-    * [filter](#List.filter)
-    * [map](#List.map)
-    * [every](#List.every)
-    * [some](#List.some)
-    * [intersperse](#List.intersperse)
-    * [join](#List.join)
-    * [flatten](#List.flatten)
-    * [flatMap](#List.flatMap)
-    * [chain](#List.chain)
-    * [ap](#List.ap)
-    * [traverse](#List.traverse)
-    * [sequence](#List.sequence)
+    * [append](#listappend)
+    * [push](#listpush)
+    * [appendAll](#listappendAll)
+    * [concat](#listconcat)
+    * [prepend](#listprepend)
+    * [unshift](#listunshift)
+    * [drop](#listdrop)
+    * [take](#listtake)
+    * [update](#listupdate)
+    * [set](#listset)
+    * [slice](#listslice)
+    * [removeAt](#listremoveAt)
+    * [remove](#listremove)
+    * [insertAt](#listinsert)
+    * [reduce](#listreduce)
+    * [reduceRight](#listreduceRight)
+    * [foldl](#listfoldl)
+    * [foldr](#listfoldr)
+    * [filter](#listfilter)
+    * [map](#listmap)
+    * [every](#listevery)
+    * [some](#listsome)
+    * [intersperse](#listintersperse)
+    * [join](#listjoin)
+    * [flatten](#listflatten)
+    * [flatMap](#listflatMap)
+    * [chain](#listchain)
+    * [ap](#listap)
+    * [traverse](#listtraverse)
+    * [sequence](#listsequence)
     
 ### Builder
 1. adding sources
-    * [append](#Builder.append)
-    * [push](#Builder.push)
-    * [appendAll](#Builder.appendAll)
-    * [concat](#Builder.concat)
-    * [prepend](#Builder.prepend)
-    * [unshift](#Builder.unshift)
+    * [append](#builderappend)
+    * [push](#builderpush)
+    * [appendAll](#builderappendAll)
+    * [concat](#builderconcat)
+    * [prepend](#builderprepend)
+    * [unshift](#builderunshift)
 1. transforms
-    * [map](#Builder.map)
-    * [filter](#Builder.filter)
-    * [drop](#Builder.drop)
-    * [dropWhile](#Builder.dropWhile)
-    * [take](#Builder.take)
-    * [takeWhile](#Builder.takeWhile)
-    * [groupWith](#Builder.groupWith)
-    * [flatMap](#Builder.flatMap)
-    * [flatten](#Builder.flatten)
-    * [scan](#Builder.scan)
-    * [intersperse](#Builder.intersperse)
-    * [unique](#Builder.unique)
+    * [map](#buildermap)
+    * [filter](#builderfilter)
+    * [drop](#builderdrop)
+    * [dropWhile](#builderdropWhile)
+    * [take](#buildertake)
+    * [takeWhile](#buildertakeWhile)
+    * [groupWith](#buildergroupWith)
+    * [flatMap](#builderflatMap)
+    * [flatten](#builderflatten)
+    * [scan](#builderscan)
+    * [intersperse](#builderintersperse)
+    * [unique](#builderunique)
 1. into destinations
-    * [reduce](#Builder.reduce) [to Any] 
-    * [join](#Builder.join) [to String]
-    * [toArray](#Builder.toArray) [to native Array]
-    * [toList](#Builder.toList) [to List]
-    * [every](#Builder.every) [to Boolean]
-    * [some](#Builder.some) [to Boolean]
+    * [reduce](#builderreduce) [to Any] 
+    * [join](#builderjoin) [to String]
+    * [toArray](#buildertoArray) [to native Array]
+    * [toList](#buildertoList) [to List]
+    * [every](#builderevery) [to Boolean]
+    * [some](#buildersome) [to Boolean]
 
 
-# List API
+### List API
 
 
-# List.empty
+### List.empty
 ```javascript
 List.empty(): List<any>
 ```
@@ -97,7 +97,7 @@ Example:
 var none = List.empty();
 var nada = none.empty();
 ```
-# List.of
+### List.of
 ```typescript
 List.of<T>(value: T): List<T>
 ```
@@ -108,7 +108,7 @@ example:
 var one = List.of(1)
 ```
 
-# List.from
+### List.from
 ```typescript
 List.from(list: Array<T>|List<T>|Iterable<T>): List<T>
 ```
@@ -119,7 +119,7 @@ example:
 var one = List.of(1)
 ```
 
-# List.range
+### List.range
 ```typescript
 List.range(start: number, end: number): List<number>
 ```
@@ -129,7 +129,7 @@ var nums = List.range(0, 5);
 //nums == [0,1,2,3,4]
 ```
 
-# List.times
+### List.times
 ```typescript
 List.times<T>(n: number, function(i: number): T): List<T>
 ```
@@ -141,14 +141,14 @@ var nums = List.range(0, 5)
 //nums == [0,1,2,3,4]
 ```
 
-# List.toBuilder
+### List.toBuilder
 creates a builder from the current list
 see also: [List.Builder](#List.Builder) to create an empty Builder
 
-# List.get
+### List.get
 alias for [List.nth](#List.nth)
 
-# List.nth
+### List.nth
 ```typescript
 nth<T>(n: number, notFound: any): T|notFound
 ```
@@ -166,160 +166,160 @@ var resultc = nums.nth(7, Maybe.Nothing);
 //resultc = Nothing
 ```
 
-# List.indexOf
+### List.indexOf
 ```typescript
 indexOf<T>(value: T): number
 ```
 
-# List.includes
+### List.includes
 ```typescript
 includes(value: any): boolean
 ```
-# List.find
+### List.find
 ```typescript
 find<T>(function(value: T): boolean): number
 ```
-# List.iterator
+### List.iterator
 ```typescript
 iterator(start: number, end: number): RangedIterator
 ```
 
-# List.reverseIterator
+### List.reverseIterator
 ```typescript
 iterator(start: number, end: number): RangedIterator
 ```
-# List[Symbol.iterator]
+### List[Symbol.iterator]
 returns a iterator for the current collection
 
-# List.append
+### List.append
 ```typescript
 append<T>(value: T): List<T>
 ```
 
-# List.push
+### List.push
 alias for [List.append](#List.append)
 
-# List.appendAll
+### List.appendAll
 ```typescript
 appendAll<T>(iterable: Array<T>|List<T>|Iterable<T>): List<T>
 ```
 
-# List.concat
+### List.concat
 fantasy-land compatibility for [Semigroup](https://github.com/fantasyland/fantasy-land#semigroup)
 alias for [List.appendAll](#List.appendAll)
 
-# List.prepend
+### List.prepend
 ```typescript
 prepend<T>(value: T): List<T>
 ```
 add an element to the beginning of the list, returning a new list
 
-# List.unshift
+### List.unshift
 alias for [List.prepend](#List.prepend)
 
-# List.drop
+### List.drop
 ```typescript
 drop(n: number): List
 ```
-# List.take
+### List.take
 ```typescript
 take(n: number): List
 ```
-# List.update
+### List.update
 ```typescript
 drop(index: number): List
 ```
 
-# List.set
+### List.set
 alias for [List.update](#List.update)
 
-# List.slice
+### List.slice
 ```typescript
 slice(from: number, to: number): List
 ```
 
-# List.removeAt
+### List.removeAt
 ```typescript
 removeAt(index: number): List
 ```
-# List.remove
+### List.remove
 ```typescript
 removeAt<T>(value: T): List<T>
 ```
 
-# List.insertAt
+### List.insertAt
 ```typescript
 insertAt<T>(index: number, value: T): List<T>
 ```
-# List.reduce
+### List.reduce
 ```typescript
 reduce<T>(callback: function(accumulator: W, next: T): W, seed: W): List<T>
 ```
 
-# List.reduceRight
+### List.reduceRight
 ```typescript
 reduceRight<T>(callback: function(accumulator: W, next: T): W, seed: W): List<T>
 ```
-# List.foldl
+### List.foldl
 ```typescript
 foldl<T>(callback: function(next: T, accumulator: W): W, seed: W): List<T>
 ```
-# List.foldr
+### List.foldr
 ```typescript
 foldr<T>(callback: function(next: T, accumulator: W): W, seed: W): List<T>
 ```
-# List.filter
+### List.filter
 ```typescript
 filter<T>(callback: function(value: T):Boolean): List<T>
 ```
-# List.map
+### List.map
 ```typescript
 map<T>(callback: function(value: T): W): List<W>
 ```
-# List.every
+### List.every
 ```typescript
 every(callback: function(value: T):Boolean): Boolean
 ```
-# List.some
+### List.some
 ```typescript
 some(callback: function(value: T):Boolean): Boolean
 ```
-# List.intersperse
+### List.intersperse
 ```typescript
 intersperse<T>(separator: T): List<T>
 ```
-# List.join
+### List.join
 ```typescript
 join(separator: string): string
 ```
-# List.flatten
+### List.flatten
 ```typescript
 flatten(): List
 ```
-# List.flatMap
+### List.flatMap
 ```typescript
 flatMap<T|Array>(callback: function(value: T): W): List<W>
 ```
-# List.chain
+### List.chain
 fantasy-land compatibility for [Chain](https://github.com/fantasyland/fantasy-land#chain)
 alias for [List.flatMap](#List.flatMap)
-# List.ap
+### List.ap
 fantasy-land compatibility for [Applicative](https://github.com/fantasyland/fantasy-land#applicative)
-# List.traverse
+### List.traverse
 fantasy-land compatibility for [Traversible](https://github.com/fantasyland/fantasy-land#traversable)
-# List.sequence
+### List.sequence
 fantasy-land compatibility for [Traversible](https://github.com/fantasyland/fantasy-land#traversable)
 
-# List.Builder
+### List.Builder
 create a new empty Builder
 
-# Builder
+### Builder
 Builders offer faster batched iteration and transformations over multiple collections
 (like an iterator of iterators) with a fluent API.
 
 
 
-# Builder.appendAll
+### Builder.appendAll
 ```typescript
 appendAll<T>(list: Array<T>): Builder<T>
 ```
@@ -340,10 +340,10 @@ var result = List.Builder()
 	.toList()
 ```
 
-# Builder.concat
+### Builder.concat
 alias for [appendAll()](#Builder.appendAll)
 
-# Builder.append
+### Builder.append
 ```typescript
 append<T>(value: T): Builder<T>
 ```
@@ -359,10 +359,10 @@ var result = List.Builder()
 // result == [1,2,3]
 ```
 
-# Builder.push
+### Builder.push
 alias for [append()](#Builder.append)
 
-# Builder.prepend
+### Builder.prepend
 ```typescript
 prepend<T>(value: T): Builder<T>
 ```
@@ -378,10 +378,10 @@ var result = List.Builder()
 // result == [1,2,3]
 ```
 
-# Builder.unshift
+### Builder.unshift
 alias for [prepend()](#Builder.prepend)
 
-# Builder.map
+### Builder.map
 ```typescript
 map<T>(callback: function(value:T): W): Builder<W>
 ```
@@ -399,42 +399,42 @@ var result = List.Builder()
 // result == [2,3,4]
 ```
  
-# Builder.filter
+### Builder.filter
 ```typescript
 filter<T>(callback: function(value:T): Boolean): Builder<T>
 ```
 calls the provided callback function once for each element in the sources,
 in order, and keeps the element if callback returns true
 
-# Builder.drop
+### Builder.drop
 ```typescript
 drop(n: number): Builder
 ```
 accepts a provided number, removing the first n elements from the sources,
 leaving the remaining
 
-# Builder.dropWhile
+### Builder.dropWhile
 ```typescript
 dropWhile(callback: function(value:T): Boolean): Builder
 ```
 accepts a provided callback, removing elements until the callback returns true,
 leaving the remaining elements untouched
 
-# Builder.take
+### Builder.take
 ```typescript
 take(n: number): Builder
 ```
 accepts a provided number, removing the first n elements from the sources,
 leaving the remaining
 
-# Builder.takeWhile
+### Builder.takeWhile
 ```typescript
 takeWhile(callback: function(value:T): Boolean): Builder
 ```
 accepts a provided callback, keeping elements until the callback returns false,
 leaving the remaining elements untouched
 
-# Builder.flatten
+### Builder.flatten
 ```typescript
 flatten(): Builder
 ```
@@ -448,7 +448,7 @@ var result = List.Builder()
 // result == [1,2,3,4,5,6,7,8,9]
 ```
 
-# Builder.flatMap
+### Builder.flatMap
 ```typescript
 map<T|Array>(callback: function(value:T): W): Builder<W>
 ```
@@ -464,7 +464,7 @@ var result = List.Builder()
 // result == [2,3,4,5,6,7,8,9,10]
 ```
 
-# Builder.intersperse
+### Builder.intersperse
 ```typescript
 intersperse(value: any): Builder
 ```
@@ -479,7 +479,7 @@ var result = List.Builder()
 // result == [1, "-", 2, "-", 3]
 ```
 
-# Builder.unique
+### Builder.unique
 ```typescript
 unique(): Builder
 ```
@@ -492,7 +492,7 @@ var result = List.Builder()
 // result == [1, 2, 3]
 ```
 
-# Builder.scan
+### Builder.scan
 ```typescript
 scan<T>(callback: function(accumulator: W, next: T): W, seed: W): Builder<W>
 ```
@@ -500,42 +500,42 @@ Accepts an callback function and an optionally seed value.
 incrementally reduces each element in order. 
 non-terminal (i.e. does not produce the final builder result)
 
-# Builder.reduce
+### Builder.reduce
 ```typescript
 reduce<T>(callback: function(accumulator: W, next: T): W, seed: W): W
 ```
 Accepts a reducer callback and an option seed value.
 Terminal. Returns the result of the builder run through the callback.
 
-# Builder.join
+### Builder.join
 ```typescript
 join(separator: string): string
 ```
 Returns the result of the builder as a native Array.
 Accepts an optional separator. Terminal.
 
-# Builder.toArray
+### Builder.toArray
 ```typescript
 toArray<T>(): Array<T>
 ```
 Returns the result of the builder as an native Array.
 Accepts no input arguments. Terminal
 
-# Builder.toList
+### Builder.toList
 ```typescript
 toList<T>(): List<T>
 ```
 Returns the result of the builder as an immutable List.
 Accepts no input arguments. Terminal
 
-# Builder.every
+### Builder.every
 ```typescript
 every<T>(callback: function(value:T): Boolean): Boolean
 ```
 Accepts a callback function, returning a boolean if all elements pass
 Terminal.
 
-# Builder.some
+### Builder.some
 ```typescript
 some<T>(callback: function(value:T): Boolean): Boolean
 ```
