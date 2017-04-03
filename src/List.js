@@ -162,6 +162,10 @@ proto.reduce = function(fn, seed) {
     return iterator(0, this.length, this).reduce(fn, seed);
 }
 
+proto.reduceRight = function(fn, seed) {
+	return reverseIterator(0, this.length, this).reduce(fn, seed);
+}
+
 /**
  * foldl has argument order flipped from reduce, allowing for 
  * better composition

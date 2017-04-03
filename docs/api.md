@@ -20,65 +20,65 @@
     * [reverseIterator](#List.reverseIterator)
     * [[Symbol.iterator]](#List.[Symbol.iterator])
 1. Transforming Lists
-    * append
-    * push
-    * appendAll
-    * concat
-    * prepend
-    * unshift
-    * drop
-    * take
-    * update
-    * set
-    * slice
-    * removeAt
-    * remove
-    * insertAt
-    * reduce
-    * reduceRight
-    * foldl
-    * foldr
-    * filter
-    * map
-    * every
-    * some
-    * intersperse
-    * join
-    * flatten
-    * flatMap
-    * chain
-    * ap
-    * traverse
-    * sequence
+    * [append](#List.append)
+    * [push](#List.push)
+    * [appendAll](#List.appendAll)
+    * [concat](#List.concat)
+    * [prepend](#List.prepend)
+    * [unshift](#List.unshift)
+    * [drop](#List.drop)
+    * [take](#List.take)
+    * [update](#List.update)
+    * [set](#List.set)
+    * [slice](#List.slice)
+    * [removeAt](#List.removeAt)
+    * [remove](#List.remove)
+    * [insertAt](#List.insert)
+    * [reduce](#List.reduce)
+    * [reduceRight](#List.reduceRight)
+    * [foldl](#List.foldl)
+    * [foldr](#List.foldr)
+    * [filter](#List.filter)
+    * [map](#List.map)
+    * [every](#List.every)
+    * [some](#List.some)
+    * [intersperse](#List.intersperse)
+    * [join](#List.join)
+    * [flatten](#List.flatten)
+    * [flatMap](#List.flatMap)
+    * [chain](#List.chain)
+    * [ap](#List.ap)
+    * [traverse](#List.traverse)
+    * [sequence](#List.sequence)
     
 ### Builder
-1. sources
-    * append
-    * push
-    * appendAll
-    * concat
-    * prepend
-    * unshift
+1. adding sources
+    * [append](#Builder.append)
+    * [push](#Builder.push)
+    * [appendAll](#Builder.appendAll)
+    * [concat](#Builder.concat)
+    * [prepend](#Builder.prepend)
+    * [unshift](#Builder.unshift)
 1. transforms
-    * map
-    * filter
-    * drop
-    * dropWhile
-    * take
-    * takeWhile
-    * groupWith
-    * flatMap
-    * flatten
-    * scan
-    * intersperse
-    * unique
-1. terminators
-    * reduce [to Any]
-    * join [to String]
-    * toArray [to native Array]
-    * toList [to List]
-    * every [to Boolean]
-    * some [to Boolean]
+    * [map](#Builder.map)
+    * [filter](#Builder.filter)
+    * [drop](#Builder.drop)
+    * [dropWhile](#Builder.dropWhile)
+    * [take](#Builder.take)
+    * [takeWhile](#Builder.takeWhile)
+    * [groupWith](#Builder.groupWith)
+    * [flatMap](#Builder.flatMap)
+    * [flatten](#Builder.flatten)
+    * [scan](#Builder.scan)
+    * [intersperse](#Builder.intersperse)
+    * [unique](#Builder.unique)
+1. into destinations
+    * [reduce](#Builder.reduce) [to Any] 
+    * [join](#Builder.join) [to String]
+    * [toArray](#Builder.toArray) [to native Array]
+    * [toList](#Builder.toList) [to List]
+    * [every](#Builder.every) [to Boolean]
+    * [some](#Builder.some) [to Boolean]
 
 
 # List API
@@ -125,7 +125,7 @@ List.range(start: number, end: number): List<number>
 ```
 example:
 ```javascript
-var nums = List.range(0, 5)
+var nums = List.range(0, 5);
 //nums == [0,1,2,3,4]
 ```
 
@@ -146,7 +146,7 @@ creates a builder from the current list
 see also: [List.Builder](#List.Builder) to create an empty Builder
 
 # List.get
-alias for [List.nth]
+alias for [List.nth](#List.nth)
 
 # List.nth
 ```typescript
@@ -173,11 +173,11 @@ indexOf<T>(value: T): number
 
 # List.includes
 ```typescript
-includes<T>(value: T): boolean
+includes(value: any): boolean
 ```
 # List.find
 ```typescript
-indexOf<T>(function(value: T): boolean): number
+find<T>(function(value: T): boolean): number
 ```
 # List.iterator
 ```typescript
@@ -188,7 +188,7 @@ iterator(start: number, end: number): RangedIterator
 ```typescript
 iterator(start: number, end: number): RangedIterator
 ```
-# List.[Symbol.iterator]
+# List[Symbol.iterator]
 returns a iterator for the current collection
 
 # List.append
@@ -201,7 +201,7 @@ alias for [List.append](#List.append)
 
 # List.appendAll
 ```typescript
-appendAll<T>(iterable: Iterable<T>): List<T>
+appendAll<T>(iterable: Array<T>|List<T>|Iterable<T>): List<T>
 ```
 
 # List.concat
@@ -249,7 +249,7 @@ removeAt<T>(value: T): List<T>
 
 # List.insertAt
 ```typescript
-removeAt<T>(index: number, value: T): List<T>
+insertAt<T>(index: number, value: T): List<T>
 ```
 # List.reduce
 ```typescript
@@ -270,7 +270,7 @@ foldr<T>(callback: function(next: T, accumulator: W): W, seed: W): List<T>
 ```
 # List.filter
 ```typescript
-filter(callback: function(value: T):Boolean): List<T>
+filter<T>(callback: function(value: T):Boolean): List<T>
 ```
 # List.map
 ```typescript
@@ -290,7 +290,7 @@ intersperse<T>(separator: T): List<T>
 ```
 # List.join
 ```typescript
-join<T>(separator: string): string
+join(separator: string): string
 ```
 # List.flatten
 ```typescript
@@ -320,6 +320,9 @@ Builders offer faster batched iteration and transformations over multiple collec
 
 
 # Builder.appendAll
+```typescript
+appendAll<T>(list: Array<T>): Builder<T>
+```
 add a collection to the source list.
 Sources are lazily iterated over when builder exectutes a "terminating" statement. 
 Any collection type can be used including:
@@ -341,6 +344,9 @@ var result = List.Builder()
 alias for [appendAll()](#Builder.appendAll)
 
 # Builder.append
+```typescript
+append<T>(value: T): Builder<T>
+```
 add a single item to the sources list.
 
 Example:
@@ -357,6 +363,9 @@ var result = List.Builder()
 alias for [append()](#Builder.append)
 
 # Builder.prepend
+```typescript
+prepend<T>(value: T): Builder<T>
+```
 add a single item to the beginning of sources list.
 
 Example:
@@ -373,6 +382,9 @@ var result = List.Builder()
 alias for [prepend()](#Builder.prepend)
 
 # Builder.map
+```typescript
+map<T>(callback: function(value:T): W): Builder<W>
+```
 calls a provided callback function once for each element in an sources, 
 in order, and returns a new replacement element.
 
@@ -388,30 +400,47 @@ var result = List.Builder()
 ```
  
 # Builder.filter
-calls the provided callcack function once for each element in the sources,
+```typescript
+filter<T>(callback: function(value:T): Boolean): Builder<T>
+```
+calls the provided callback function once for each element in the sources,
 in order, and keeps the element if callback returns true
 
 # Builder.drop
+```typescript
+drop(n: number): Builder
+```
 accepts a provided number, removing the first n elements from the sources,
 leaving the remaining
 
 # Builder.dropWhile
+```typescript
+dropWhile(callback: function(value:T): Boolean): Builder
+```
 accepts a provided callback, removing elements until the callback returns true,
 leaving the remaining elements untouched
 
 # Builder.take
+```typescript
+take(n: number): Builder
+```
 accepts a provided number, removing the first n elements from the sources,
 leaving the remaining
 
 # Builder.takeWhile
+```typescript
+takeWhile(callback: function(value:T): Boolean): Builder
+```
 accepts a provided callback, keeping elements until the callback returns false,
 leaving the remaining elements untouched
 
 # Builder.flatten
+```typescript
+flatten(): Builder
+```
 merges all elements recursively, if they are an Array, List or Iterable, into a single list
 
 ```javascript
-
 var result = List.Builder()
 	.appendAll([[1,2,3], [4,5,6], [7,8,9]])
 	.flatten()
@@ -420,6 +449,9 @@ var result = List.Builder()
 ```
 
 # Builder.flatMap
+```typescript
+map<T|Array>(callback: function(value:T): W): Builder<W>
+```
 transform each element or sub-element(if iterable), then merges into resulting list
 
 ```javascript
@@ -433,6 +465,9 @@ var result = List.Builder()
 ```
 
 # Builder.intersperse
+```typescript
+intersperse(value: any): Builder
+```
 Accepts a single argument an inserts it between every element in the array.
 Will not insert as first or last item
 
@@ -445,6 +480,9 @@ var result = List.Builder()
 ```
 
 # Builder.unique
+```typescript
+unique(): Builder
+```
 ensures all elements only occur once in the result
 ```javascript
 var result = List.Builder()
@@ -455,30 +493,51 @@ var result = List.Builder()
 ```
 
 # Builder.scan
+```typescript
+scan<T>(callback: function(accumulator: W, next: T): W, seed: W): Builder<W>
+```
 Accepts an callback function and an optionally seed value.
 incrementally reduces each element in order. 
 non-terminal (i.e. does not produce the final builder result)
 
 # Builder.reduce
+```typescript
+reduce<T>(callback: function(accumulator: W, next: T): W, seed: W): W
+```
 Accepts a reducer callback and an option seed value.
 Terminal. Returns the result of the builder run through the callback.
 
 # Builder.join
+```typescript
+join(separator: string): string
+```
 Returns the result of the builder as a native Array.
 Accepts an optional separator. Terminal.
 
 # Builder.toArray
+```typescript
+toArray<T>(): Array<T>
+```
 Returns the result of the builder as an native Array.
 Accepts no input arguments. Terminal
 
 # Builder.toList
+```typescript
+toList<T>(): List<T>
+```
 Returns the result of the builder as an immutable List.
 Accepts no input arguments. Terminal
 
 # Builder.every
+```typescript
+every<T>(callback: function(value:T): Boolean): Boolean
+```
 Accepts a callback function, returning a boolean if all elements pass
 Terminal.
 
 # Builder.some
+```typescript
+some<T>(callback: function(value:T): Boolean): Boolean
+```
 Accepts a callback function, returning a boolean if any elements pass.
 Terminal
