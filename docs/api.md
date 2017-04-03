@@ -3,22 +3,22 @@
 
 ### List
 1. Creating Lists
-    * [empty](#empty)
-    * [of](#of)
-    * [from](#from)
-    * [times](#times)
-    * [range](#range)
+    * [empty](#List.empty)
+    * [of](#List.of)
+    * [from](#List.from)
+    * [times](#List.times)
+    * [range](#List.range)
     * [Builder](#Builder)
-    * [toBuilder](#Builer)
+    * [toBuilder](#toBuilder)
 1. Reading Lists
-    * get
-    * nth
-    * indexOf
-    * includes
-    * find
-    * iterator
-    * reverseIterator
-    * [Symbol.iterator]
+    * [get](#List.get)
+    * [nth](#List.nth)
+    * [indexOf](#List.indexOf)
+    * [includes](#List.includes)
+    * [find](#List.find)
+    * [iterator](#List.iterator)
+    * [reverseIterator](#List.reverseIterator)
+    * [[Symbol.iterator]](#List.[Symbol.iterator])
 1. Transforming Lists
     * append
     * push
@@ -88,9 +88,9 @@
 ```javascript
 List.empty(): List<any>
 ```
-returns a new List
+returns a new empty List
 
-note: fantasy-land compliant with _Monoid_.
+fantasy-land compatibility for [Monoid](https://github.com/fantasyland/fantasy-land#monoid)
 
 Example:
 ```typescript
@@ -167,45 +167,151 @@ var resultc = nums.nth(7, Maybe.Nothing);
 ```
 
 # List.indexOf
-# List.includes
-# List.find
-# List.iterator
-# List.reverseIterator
-# List.[Symbol.iterator]
+```typescript
+indexOf<T>(value: T): number
+```
 
-* append
-    * push
-    * appendAll
-    * concat
-    * prepend
-    * unshift
-    * drop
-    * take
-    * update
-    * set
-    * slice
-    * removeAt
-    * remove
-    * insertAt
-    * reduce
-    * reduceRight
-    * foldl
-    * foldr
-    * filter
-    * map
-    * every
-    * some
-    * intersperse
-    * join
-    * flatten
-    * flatMap
-    * chain
-    * ap
-    * traverse
-    * sequence
+# List.includes
+```typescript
+includes<T>(value: T): boolean
+```
+# List.find
+```typescript
+indexOf<T>(function(value: T): boolean): number
+```
+# List.iterator
+```typescript
+iterator(start: number, end: number): RangedIterator
+```
+
+# List.reverseIterator
+```typescript
+iterator(start: number, end: number): RangedIterator
+```
+# List.[Symbol.iterator]
+returns a iterator for the current collection
+
+# List.append
+```typescript
+append<T>(value: T): List<T>
+```
+
+# List.push
+alias for [List.append](#List.append)
+
+# List.appendAll
+```typescript
+appendAll<T>(iterable: Iterable<T>): List<T>
+```
+
+# List.concat
+fantasy-land compatibility for [Semigroup](https://github.com/fantasyland/fantasy-land#semigroup)
+alias for [List.appendAll](#List.appendAll)
+
+# List.prepend
+```typescript
+prepend<T>(value: T): List<T>
+```
+add an element to the beginning of the list, returning a new list
+
+# List.unshift
+alias for [List.prepend](#List.prepend)
+
+# List.drop
+```typescript
+drop(n: number): List
+```
+# List.take
+```typescript
+take(n: number): List
+```
+# List.update
+```typescript
+drop(index: number): List
+```
+
+# List.set
+alias for [List.update](#List.update)
+
+# List.slice
+```typescript
+slice(from: number, to: number): List
+```
+
+# List.removeAt
+```typescript
+removeAt(index: number): List
+```
+# List.remove
+```typescript
+removeAt<T>(value: T): List<T>
+```
+
+# List.insertAt
+```typescript
+removeAt<T>(index: number, value: T): List<T>
+```
+# List.reduce
+```typescript
+reduce<T>(callback: function(accumulator: W, next: T): W, seed: W): List<T>
+```
+
+# List.reduceRight
+```typescript
+reduceRight<T>(callback: function(accumulator: W, next: T): W, seed: W): List<T>
+```
+# List.foldl
+```typescript
+foldl<T>(callback: function(next: T, accumulator: W): W, seed: W): List<T>
+```
+# List.foldr
+```typescript
+foldr<T>(callback: function(next: T, accumulator: W): W, seed: W): List<T>
+```
+# List.filter
+```typescript
+filter(callback: function(value: T):Boolean): List<T>
+```
+# List.map
+```typescript
+map<T>(callback: function(value: T): W): List<W>
+```
+# List.every
+```typescript
+every(callback: function(value: T):Boolean): Boolean
+```
+# List.some
+```typescript
+some(callback: function(value: T):Boolean): Boolean
+```
+# List.intersperse
+```typescript
+intersperse<T>(separator: T): List<T>
+```
+# List.join
+```typescript
+join<T>(separator: string): string
+```
+# List.flatten
+```typescript
+flatten(): List
+```
+# List.flatMap
+```typescript
+flatMap<T|Array>(callback: function(value: T): W): List<W>
+```
+# List.chain
+fantasy-land compatibility for [Chain](https://github.com/fantasyland/fantasy-land#chain)
+alias for [List.flatMap](#List.flatMap)
+# List.ap
+fantasy-land compatibility for [Applicative](https://github.com/fantasyland/fantasy-land#applicative)
+# List.traverse
+fantasy-land compatibility for [Traversible](https://github.com/fantasyland/fantasy-land#traversable)
+# List.sequence
+fantasy-land compatibility for [Traversible](https://github.com/fantasyland/fantasy-land#traversable)
 
 # List.Builder
-create a new 
+create a new empty Builder
 
 # Builder
 Builders offer faster batched iteration and transformations over multiple collections
