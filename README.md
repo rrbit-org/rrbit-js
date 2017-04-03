@@ -1,5 +1,5 @@
 
-<img width="343" height="80" alt="rrbit" src="https://raw.githubusercontent.com/rrbit-org/rrbit-js/master/project/logo/header.png">
+<img width="343" height="80" alt="rrbit" src="https://raw.githubusercontent.com/rrbit-org/rrbit-js/master/project/logos/header.png">
 
 
 [![Build Status](https://travis-ci.org/rrbit-org/rrbit-js.svg?branch=master)](https://travis-ci.org/rrbit-org/rrbit-js)
