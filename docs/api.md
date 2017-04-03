@@ -143,10 +143,10 @@ var nums = List.range(0, 5)
 
 ### List.toBuilder
 creates a builder from the current list
-see also: [List.Builder](#List.Builder) to create an empty Builder
+see also: [List.Builder](#listbuilder) to create an empty Builder
 
 ### List.get
-alias for [List.nth](#List.nth)
+alias for [List.nth](#listnth)
 
 ### List.nth
 ```typescript
@@ -197,7 +197,7 @@ append<T>(value: T): List<T>
 ```
 
 ### List.push
-alias for [List.append](#List.append)
+alias for [List.append](#listappend)
 
 ### List.appendAll
 ```typescript
@@ -206,7 +206,7 @@ appendAll<T>(iterable: Array<T>|List<T>|Iterable<T>): List<T>
 
 ### List.concat
 fantasy-land compatibility for [Semigroup](https://github.com/fantasyland/fantasy-land#semigroup)
-alias for [List.appendAll](#List.appendAll)
+alias for [List.appendAll](#listappendAll)
 
 ### List.prepend
 ```typescript
@@ -215,7 +215,7 @@ prepend<T>(value: T): List<T>
 add an element to the beginning of the list, returning a new list
 
 ### List.unshift
-alias for [List.prepend](#List.prepend)
+alias for [List.prepend](#listprepend)
 
 ### List.drop
 ```typescript
@@ -231,7 +231,7 @@ drop(index: number): List
 ```
 
 ### List.set
-alias for [List.update](#List.update)
+alias for [List.update](#listupdate)
 
 ### List.slice
 ```typescript
@@ -302,7 +302,7 @@ flatMap<T|Array>(callback: function(value: T): W): List<W>
 ```
 ### List.chain
 fantasy-land compatibility for [Chain](https://github.com/fantasyland/fantasy-land#chain)
-alias for [List.flatMap](#List.flatMap)
+alias for [List.flatMap](#listflatMap)
 ### List.ap
 fantasy-land compatibility for [Applicative](https://github.com/fantasyland/fantasy-land#applicative)
 ### List.traverse
@@ -341,7 +341,7 @@ var result = List.Builder()
 ```
 
 ### Builder.concat
-alias for [appendAll()](#Builder.appendAll)
+alias for [appendAll()](#builderappendAll)
 
 ### Builder.append
 ```typescript
@@ -360,7 +360,7 @@ var result = List.Builder()
 ```
 
 ### Builder.push
-alias for [append()](#Builder.append)
+alias for [append()](#builderappend)
 
 ### Builder.prepend
 ```typescript
@@ -379,7 +379,7 @@ var result = List.Builder()
 ```
 
 ### Builder.unshift
-alias for [prepend()](#Builder.prepend)
+alias for [prepend()](#builderprepend)
 
 ### Builder.map
 ```typescript
