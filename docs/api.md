@@ -146,13 +146,9 @@ creates a builder from the current list
 see also: [List.Builder](#listbuilder) to create an empty Builder
 
 ### List.get
-alias for [List.nth](#listnth)
-
-### List.nth
 ```typescript
 nth<T>(n: number, notFound: any): T|notFound
 ```
-returns the value at the provided index, or notFound if index is out of bounds
 
 example
 ```javascript
@@ -164,6 +160,23 @@ var resultc = nums.nth(7, Maybe.Nothing);
 //resulta = 2
 //resultb = undefined
 //resultc = Nothing
+```
+
+### List.nth
+```typescript
+nth<T>(index: number): Maybe<T>
+```
+returns the value at the provided index, wrapped in a Maybe.Just if in bounds
+or a Maybe.Nothing if out of bound
+
+example
+```javascript
+var nums = List.range(0, 5)
+var maybe_a = nums.nth(2);
+var maybe_b = nums.nth(7);
+//nums == [0,1,2,3,4]
+//maybe_a == Just(2)
+//maybe_b == Nothing
 ```
 
 ### List.indexOf

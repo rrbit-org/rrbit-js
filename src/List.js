@@ -12,6 +12,7 @@ const {
 	empty,
 	iterator,
 	reverseIterator} = rrbit;
+import {Maybe} from './Maybe'
 
 
 
@@ -121,8 +122,23 @@ proto.take = function(n) {
     return take(n, this);
 };
 
-proto.nth = proto.get = function(i, notFound) {
+/**
+ * legacy get, to make things easy for beginners to lean
+ * @param {number} i
+ * @param notFound
+ */
+proto.get = function(i, notFound) {
   return nth(i, this, notFound);
+};
+
+
+/**
+ *
+ * @param i
+ * @returns {Maybe}
+ */
+proto.nth = function(i) {
+	return Maybe.of(nth(i, this, Maybe.Nothing()));
 };
 
 // conventions seem to dictate this be named 'set'
