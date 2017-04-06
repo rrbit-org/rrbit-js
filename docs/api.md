@@ -42,6 +42,8 @@
     * [map](#listmap)
     * [every](#listevery)
     * [some](#listsome)
+    * [sort](#listsort)
+    * [sortwith](#listsortwith)
     * [intersperse](#listintersperse)
     * [join](#listjoin)
     * [flatten](#listflatten)
@@ -297,6 +299,28 @@ every(callback: function(value: T):Boolean): Boolean
 ```typescript
 some(callback: function(value: T):Boolean): Boolean
 ```
+
+
+### List.sortWith
+```typescript
+sortWith<T>(function(a: T, b: T): number): List<T>
+```
+
+sorts the list using a provided [comparison function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)
+
+the callback should return one of :
+  0 : if items are equal
+  1 : if a is greater than b
+  -1: if b is greater than a
+
+
+### List.sort
+```typescript
+sort(): List
+```
+
+sort and return a new list using a [Natural sort order](https://en.wikipedia.org/wiki/Natural_sort_order)
+
 ### List.intersperse
 ```typescript
 intersperse<T>(separator: T): List<T>
