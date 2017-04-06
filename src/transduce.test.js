@@ -40,7 +40,7 @@ test("map", () => {
 	var mapped = transduce(vec, xf, _intoList, List.empty())
 
 	for (var i = 0, len = mapped.length; len > i; i++) {
-		expect(mapped.nth(i)).toEqual(i + 1)
+		expect(mapped.get(i)).toEqual(i + 1)
 	}
 
 	expect(mapped.length).toEqual(100)

@@ -237,6 +237,7 @@ class PartitionBy extends ITransformer {
 		return (next) => new PartitionBy(fn, next)
 	}
 	constructor(fn, xf) {
+		super();
 		this.fn = fn;
 		this.xf = xf;
 		this.group = [];

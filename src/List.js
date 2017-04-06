@@ -266,15 +266,15 @@ proto.intersperse = function(separator) {
 		this : 
 		this.iterator(1, this.length)
 			.reduce((acc, value) =>
-				appendǃ(separator, append(value, acc)), appendǃ(this.nth(0), empty()));
+				appendǃ(separator, append(value, acc)), appendǃ(this.get(0), empty()));
 }
 
 proto.join = function(separator) {
 	if (this.length == 0) return "";
-	if (this.length == 1) return "" + this.nth(0);
+	if (this.length == 1) return "" + this.get(0);
 	return (this.iterator(1, this.length)
 				.reduce((acc, value) => 
-						acc + separator + value, "" + this.nth(0)))
+						acc + separator + value, "" + this.get(0)))
 }
 
 proto.flatten = function() {

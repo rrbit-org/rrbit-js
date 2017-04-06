@@ -71,7 +71,7 @@ test('map', () => {
 	var doubled = vec.map(val => val + 1);
 
 	for (var i = 0; 1000 > i; i++) {
-		expect(doubled.nth(i)).toEqual(i + 1)
+		expect(doubled.get(i)).toEqual(i + 1)
 	}
 });
 
@@ -82,7 +82,7 @@ test('filter', () => {
 	expect(even.length).toEqual(500)
 
 	for (var i = 0; 500 > i; i++) {
-		expect(even.nth(i)).toEqual(i * 2)
+		expect(even.get(i)).toEqual(i * 2)
 	}
 });
 
@@ -104,7 +104,7 @@ test('take', () => {
 	expect(vec2.length).toEqual(500)
 
 	for (var i = 0; 500 > i; i++) {
-		expect(vec2.nth(i, 'not found')).toEqual(i)
+		expect(vec2.get(i, 'not found')).toEqual(i)
 	}
 
 
@@ -118,7 +118,7 @@ test('drop', () => {
 	expect(vec2.length).toEqual(500)
 
 	for (var i = 0; 500 > i; i++) {
-		expect(vec2.nth(i, 'not found')).toEqual(i + 500)
+		expect(vec2.get(i, 'not found')).toEqual(i + 500)
 	}
 
 });
@@ -127,15 +127,15 @@ test('removeAt / remove', () => {
 	var vec = List.range(0, 1000)
 
 	var vec2 = vec.removeAt(500);
-	expect(vec2.nth(499)).toEqual(499)
-	expect(vec2.nth(500)).toEqual(501)
-	expect(vec2.nth(501)).toEqual(502)
+	expect(vec2.get(499)).toEqual(499)
+	expect(vec2.get(500)).toEqual(501)
+	expect(vec2.get(501)).toEqual(502)
 	expect(vec2.length).toEqual(999)
 
 	var vec3 = vec.remove(500);
-	expect(vec3.nth(499)).toEqual(499)
-	expect(vec3.nth(500)).toEqual(501)
-	expect(vec3.nth(501)).toEqual(502)
+	expect(vec3.get(499)).toEqual(499)
+	expect(vec3.get(500)).toEqual(501)
+	expect(vec3.get(501)).toEqual(502)
 	expect(vec3.length).toEqual(999)
 //
 });
@@ -146,9 +146,9 @@ test('insertAt', () => {
 
 	var vec2 = vec.insertAt(500, "findMe");
 	expect(vec2.length).toEqual(1001, 'wrong length')
-	expect(vec2.nth(499)).toEqual(499, 'wrong prev value')
-	expect(vec2.nth(500)).toEqual('findMe', 'wring inserted value')
-	expect(vec2.nth(501)).toEqual(500, 'wrong after value')
+	expect(vec2.get(499)).toEqual(499, 'wrong prev value')
+	expect(vec2.get(500)).toEqual('findMe', 'wring inserted value')
+	expect(vec2.get(501)).toEqual(500, 'wrong after value')
 });
 
 test('every', () => {
@@ -191,7 +191,7 @@ test('flatten', () => {
 	for (var i = 0, len = vec.length; len > i; i++) {
 		if(i == 10) offset = 10;
 		if(i == 20) offset = 20;
-		expect(vec.nth(i)).toEqual(i - offset);
+		expect(vec.get(i)).toEqual(i - offset);
 	}
 });
 
@@ -209,7 +209,7 @@ test('flatMap', () => {
 	for (var i = 0, len = vec.length; len > i; i++) {
 		if(i == 10) offset = 10;
 		if(i == 20) offset = 20;
-		expect(vec.nth(i)).toEqual((i - offset) + 1);
+		expect(vec.get(i)).toEqual((i - offset) + 1);
 	}
 });
 
