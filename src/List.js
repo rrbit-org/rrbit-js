@@ -10,6 +10,9 @@ const {
 	prepend,
 	appendAll,
 	empty,
+	reduce,
+	reduceRight,
+	find,
 	iterator,
 	reverseIterator} = rrbit;
 import {Maybe} from './Maybe'
@@ -84,9 +87,15 @@ proto.empty = empty;
  * @return {List<U>}
  */
 proto.map = function(fn) {
-
-    return (this.reduce((acc, value) =>
-					appendǃ(fn(value), acc), empty()));
+	var lib = {
+		fn,
+		add: appendǃ,
+		step(list, value) {
+			return this.add(this.fn(value), list)
+		}
+	};
+	
+	return this.reduce(lib.step.bind(lib), empty())
 }
 
 proto.append = proto.push = function(value) {
@@ -94,16 +103,18 @@ proto.append = proto.push = function(value) {
 };
 
 proto.prepend = proto.unshift = function(value) {
-	//rrbit#prepend is a little cranky right now
-	// better to be accurate than fast
-    // return prepend(value, this);
-	
-	return this.of(value).appendAll(this);
+	return prepend(value, this)
 };
 
-proto.filter = function(fn) {
-    return this.reduce((list, value) =>
-		fn(value) ? append(value, list) : list, empty());
+proto.filter = function(predicate) {
+	var lib = {
+		predicate,
+		add: appendǃ,
+		step(list, value) {
+			return this.predicate(value) ? this.add(value, list) : list
+		}
+	}
+    return this.reduce(lib.step.bind(lib), empty());
 };
 
 /**
@@ -171,15 +182,15 @@ proto.includes = function(value) {
  * @return {{value: T, index: number}}
  */
 proto.find = function(predicate) {
-    return this.iterator().find(predicate);
+    return find(predicate, this);
 }
 
 proto.reduce = function(fn, seed) {
-    return iterator(0, this.length, this).reduce(fn, seed);
+    return reduce(fn, seed, this);
 }
 
 proto.reduceRight = function(fn, seed) {
-	return reverseIterator(0, this.length, this).reduce(fn, seed);
+	return reduceRight(fn, seed, this);
 }
 
 /**
@@ -189,44 +200,46 @@ proto.reduceRight = function(fn, seed) {
  * @param {}
  */ 
 proto.foldl = function(fn, seed) {
-    return (iterator(0, this.length, this)
-            .reduce((acc, value) => fn(value, acc), seed));
+    return this.reduce((acc, value) => fn(value, acc), seed);
 }
 
-proto.foldr = function(fn, seed ){
-    return (reverseIterator(0, this.length, this)
-            .reduce((acc, value) => fn(value, acc), seed));
+proto.foldr = function(fn, seed ) {
+    return this.reduceRight((acc, value) => fn(value, acc), seed);
 }
 
 proto.appendAll = proto.concat = function(iterable) {
-	// rrbit#appendAll seems to be cranky, so we'll do a full copy
-	// until lib-rrbit get's better
-	// return appendAll(this, _from(iterable));
+
+	if (isList(iterable)) {
+		return appendAll(this, iterable)
+	}
 	
-	var addIn = (list, value) => appendǃ(value, list);
-	var vec = this.reduce(addIn, empty());
+	var lib = {
+		add: append
+		, step(list, value) {
+			return add(value, list)
+		}
+	}
 	
-	return Sequence.of(iterable).reduce(addIn, vec)
-    
+	return Sequence.of(iterable).reduce(lib.step.bind(lib), this)
 }
 
 
 
-proto.reverseIterator = function(from, to) {
-	return reverseIterator(from || 0, to || this.length, this);
-}
+// proto.reverseIterator = function(from, to) {
+// 	return reverseIterator(from || 0, to || this.length, this);
+// }
 
-proto[Symbol.iterator] = proto.iterator = function(from, to) {
-	return iterator(from || 0, to || this.length, this)
-}
+// proto[Symbol.iterator] = proto.iterator = function(from, to) {
+// 	return iterator(from || 0, to || this.length, this)
+// }
 
 // every
 proto.every = function(predicate) {
-    return this.find(value => !predicate(value)).index == -1;
+    return find(value => !predicate(value), this).index == -1;
 }
 
 proto.some = function(predicate) {
-    return this.find(predicate).index !== -1;
+    return find(predicate, this).index !== -1;
 }
 
 proto.removeAt = function(i) {
@@ -247,8 +260,9 @@ proto.insertAt = function(i, value) {
 
 function times(n, fn) {
 	var vec = empty();
+	var add = appendǃ;
 	for (var i = 0; n > i; i++) {
-		vec = appendǃ(fn(i), vec);
+		vec = add(fn(i), vec);
 	}
 	return vec;
 }
@@ -262,19 +276,39 @@ List.range = proto.range = range;
 
 
 proto.intersperse = function(separator) {
-	return (this.length < 2) ? 
-		this : 
-		this.iterator(1, this.length)
-			.reduce((acc, value) =>
-				appendǃ(separator, append(value, acc)), appendǃ(this.get(0), empty()));
+	if(this.length < 2) return this;
+	var lib = {
+		add: appendǃ,
+		separator,
+		FIRST: {},
+		step(acc, value) {
+			if (acc === this.FIRST) {
+				return this.add(value, empty())
+			}
+			return this.add(value, this.add(this.separator, acc))
+		}
+	};
+
+	return this.reduce(lib.step.bind(lib), lib.FIRST);
 }
 
 proto.join = function(separator) {
 	if (this.length == 0) return "";
 	if (this.length == 1) return "" + this.get(0);
-	return (this.iterator(1, this.length)
-				.reduce((acc, value) => 
-						acc + separator + value, "" + this.get(0)))
+
+	var lib = {
+		add: appendǃ,
+		separator,
+		FIRST: {},
+		step(acc, value) {
+			if (acc === this.FIRST) {
+				return value + ""
+			}
+			return acc + this.separator + value;
+		}
+	};
+
+	return this.reduce(lib.step.bind(lib), lib.FIRST);
 }
 
 proto.flatten = function() {
@@ -426,15 +460,67 @@ proto.chain = proto.flatMap = function(fn) {
 // Semigroup -> List#concat
 // Foldable -> List#reduce
 
-proto.traverse = function(applic, of) {
+proto.traverse = function(fn, of) {
 	this.reduce((list, next) =>
-		of(next).map(x => y => y.concat([x])).ap(list), applic(this.empty))
+		of(next).map(x => y => y.concat([x])).ap(list), fn(this.empty()))
+
+	const prepend = x => xs => [x].concat(xs)
+
+	var applicative = of([]);
+	this.reduceRight((applicative, value) => {
+		ap(map(prepend, fn(value)), applicative)
+	}, of(this.empty()))
+
+	return applicative;
 };
 
 proto.sequence = function(of) {
 	this.traverse(of, x => x)
 }
 
+/**
+ * Setoid
+
+ a.equals(a) === true (reflexivity)
+ a.equals(b) === b.equals(a) (symmetry)
+ If a.equals(b) and b.equals(c), then a.equals(c) (transitivity)
+ equals method
+
+ equals :: Setoid a => a ~> a -> Boolean
+ A value which has a Setoid must provide an equals method. The equals method takes one argument:
+
+ a.equals(b)
+ b must be a value of the same Setoid
+
+ If b is not the same Setoid, behaviour of equals is unspecified (returning false is recommended).
+ equals must return a boolean (true or false).
+ *
+ */
+
+// SameValue algorithm and polyfill
+const is = Object.is || ((x, y) =>
+		( x === y ? (x !== 0 || 1 / x === 1 / y) : (x !== x && y !== y)));
+
+function equiv(kompare, compare) {
+	if (kompare === null || kompare === undefined) return false;
+	if(is(kompare, compare)) return true;
+	if(typeof kompare.equals == 'function') return kompare.equals(compare);
+	return false;
+}
+
+proto.equals = function(b) {
+	var a = this;
+	if (is(a, b))
+		return true;
+
+	// b must have to same value as a but, if b is not of the same type as a, behavior is unspecified :/
+	// TODO: do we want to be able to compare against a native array?
+	if (b === null || b === undefined || !isList(b) || a.length !== b.length)
+		return false;
+
+	//todo: we should optimize this if possible(e.g. clojure has some ideas about caching a hash here)
+	return this.find((value, i) => !equiv(value, b.get(i)), b).index == -1
+};
 
 export {
 	List

@@ -10,12 +10,14 @@ A lightwieght(12kb), fast Immutable collections (vectors/lists/arrays) library u
 described in the [2015 Paper](https://pdfs.semanticscholar.org/b26a/3dc9050f54a37197ed44711c0e42063e9b96.pdf)
 for Relaxed Radix Balanced(RRB) vectors and some unique enhancements
 
-see the [roadmap](https://github.com/rrbit-org/rrbit-js/blob/master/Roadmap.md) for details on current progress 
+### Learn
 
 [API docs](https://github.com/rrbit-org/rrbit-js/blob/master/docs/api.md) now available
 
+~~Examples~~ coming!
 
-## Interoperability
+
+### Interoperability
 <a href="https://github.com/fantasyland/fantasy-land">
 	<img width="40" height="40" alt="Fantasy Land" src="https://raw.github.com/puffnfresh/fantasy-land/master/logo.png">
 </a>
@@ -28,3 +30,7 @@ rrbit-js also implements [Fantasy Land](https://github.com/fantasyland/fantasy-l
 * [x] `Chain` 
 * [x] `Traversable`
 * [x] `Foldable`
+
+### Roadmap
+
+see the [roadmap](https://github.com/rrbit-org/rrbit-js/blob/master/Roadmap.md) for details on current progress

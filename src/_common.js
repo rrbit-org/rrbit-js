@@ -1,10 +1,9 @@
-import { setup } from 'lib-rrbit';
+import { setup } from 'lib-rrbit/src/cassowry/index';
 
 export function List(len) {
 	this.length = len || 0;
 }
 
-var factory = len => new List(len)
 
 export function isList(thing) {
 	return thing instanceof List;
@@ -27,7 +26,7 @@ export function isBuilder(maybe) {
 	return maybe instanceof Builder
 }
 
-const rrbit = setup(factory);
+const rrbit = setup(() => new List());
 const identity = x => x 
 	
 export { rrbit, identity }

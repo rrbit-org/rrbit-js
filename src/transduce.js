@@ -428,7 +428,7 @@ class Sequence {
 	}
 
 	reduceVector(fn, seed, vector) {
-		vector.iterator().find((value) =>
+		vector.find((value) =>
 			isReduced((seed = fn(seed, value))));
 		return seed
 	}

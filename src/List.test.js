@@ -1,4 +1,5 @@
-import {List} from './List'
+import {List} from '../lib/index.cjs'
+import fl from 'fantasy-land'
 import * as Monad from 'fantasy-land/laws/monad'
 import * as Traversable from 'fantasy-land/laws/traversable'
 
@@ -53,15 +54,23 @@ test('update', () => {
 });
 
 test('prepend', () => {
-	var vec = List.range(0, 1000)
+	var vec = List.empty()
+	var i = 1024
+	while (i--) {
 
-	vec = vec.prepend(1001)
-	expect(vec.length).toEqual(1001);
-	expect(vec.get(0)).toEqual(1001)
-
-	for (var i = 1; 1000 > i; i++) {
-		expect(vec.get(i)).toEqual(i - 1)
+		vec = vec.prepend(i);
 	}
+
+	var NOT_FOUND = {notFound: true}
+
+	for (var i = 0; 1024 > i; i++) {
+
+		expect(vec.get(i, NOT_FOUND)).toEqual(i)
+	}
+
+
+	expect(vec.length).toEqual(1024);
+
 });
 
 
@@ -213,11 +222,64 @@ test('flatMap', () => {
 	}
 });
 
+function assertSame (listA, ListB) {
+	expect(listA.length).toEqual(listB.length, "lists not same length");
 
-test('traverse/sequence', () => {
-	Traversable.composition(List);
-	Traversable.naturality(List);
-	Traversable.identity(List);
+	listA.map((item, i) =>
+		expect(item).toBe(listB.get(i)));
 
+	return true
+}
 
+function setupFantasyAliases() {
+	// fantasyland tests use the prefixed aliases(e.g. 'fantasyland/map' vs 'map')
+	// even though the spec makes them optional
+	List[fl.empty] = List.prototype[fl.empty] = List.prototype.empty
+	List.prototype[fl.ap] = List.prototype.ap
+	List.prototype[fl.chain] = List.prototype.chain
+	List.prototype[fl.concat] = List.prototype.concat
+	List.prototype[fl.map] = List.prototype.map
+	List[fl.of] = List.prototype[fl.of] = List.prototype.of
+	List.prototype[fl.reduce] = List.prototype.reduce
+	List.prototype[fl.traverse] = List.prototype.traverse;
+}
+
+// test('traverse/sequence: composition', () => {
+// 	var x = {}
+// 	expect(Traversable.composition(List)(assertSame)(x)).toEqual(true);
+// });
+
+// test('traverse/sequence: naturality', () => {
+// 	var x = List.of(1);
+// 	var T = List
+// 	var t = List.of;
+// 	var eq = assertSame;
+// 	setupFantasyAliases();
+//
+// 	expect(Traversable.naturality(T)(t)(eq)(x)).toEqual(true);
+// });
+test('traverse/sequence: identity', () => {
+	setupFantasyAliases()
+	var x = List.of(1)
+	var T = List
+	var eq = assertSame
+	expect(Traversable.identity(T)(eq)(x)).toEqual(true);
 });
+// test('foo', () => {
+// 	expect(List.of([[1, 2], [3, 4]]).sequence().equals(List.of([[1, 3], [1, 4], [2, 3], [2, 4]]))).toEqual(true);
+//
+// 	expect(List.of([[1], [2], [3]]).sequence().equals(List.of([[1, 2, 3]]))).toEqual(true);
+//
+//
+// 	expect(List.of([[1, 2], [3], [4]]).sequence().equals(List.of([[1, 3, 4], [2, 3, 4]]))).toEqual(true);
+// })
+//
+// test('monad: leftIdentity', () => {
+// 	var x = {}
+// 	expect(Monad.leftIdentity(List, assertSame, x)).toEqual(true);
+// })
+//
+// test('monad: rightIdentity', () => {
+// 	var x = {}
+// 	expect(Monad.rightIdentity(List, assertSame, x)).toEqual(true);
+// })

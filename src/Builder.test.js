@@ -1,5 +1,5 @@
-import {List} from './List'
-import { Builder } from './Builder'
+import {List} from '../lib/index.cjs'
+const Builder = List.Builder
 
 
 test('basic construction', () => {
