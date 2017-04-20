@@ -268,7 +268,7 @@ class PartitionBy extends ITransformer {
 const partitionBy = PartitionBy.create;
 
 class MapCat extends ITransformer {
-	create(fn) {
+	static create(fn) {
 		return (next) => new MapCat(fn, next);
 	}
 	constructor(fn, xf) {
@@ -386,6 +386,10 @@ class Sequence {
 		this.setup(list);
 	}
 	setup(list) {
+		if (!list) {
+			this.type = 'Null'
+			return
+		}
 		this.list = list;
 
 		if (isList(list)) {
@@ -467,6 +471,10 @@ class Sequence {
 
 	reduceUnknown() {
 		throw new TypeError("unknown collection type, cannot reduce");
+	}
+
+	reduceNull(fn, seed) {
+		return seed
 	}
 }
 

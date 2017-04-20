@@ -32,7 +32,7 @@ function sum(x, y) {
 function buildSuite(a) {
 	return (Benchmark
 		.Suite("filter-map-reduce " + a.length)
-		.add('rbbit builder', function() {
+		.add('rrbit builder', function() {
 			var result = List.Builder()
 				.appendAll(a)
 				.filter(even)
@@ -40,7 +40,7 @@ function buildSuite(a) {
 				.reduce(sum, 0)
 
 		})
-		.add('rbbit list', function() {
+		.add('rrbit list', function() {
 			var result = List.from(a)
 				.filter(even)
 				.map(add1)

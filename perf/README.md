@@ -4,20 +4,20 @@ latest performance results
 ```
 filter-map-reduce 10k
 -------------------------------------------------------
-rbbit builder     :  5124.90 op/s ±   1.84% (85 samples)
-rbbit list        :   554.18 op/s ±   1.24% (83 samples)
+rbbit builder     :  5364.65 op/s ±   1.84% (85 samples)
+rbbit list        :   601.10 op/s ±   1.24% (83 samples)
 immutablejs       :   224.32 op/s ±   2.16% (79 samples)
 mori              :    67.92 op/s ±   1.53% (68 samples)
 seamless-immutable:   111.83 op/s ±   1.93% (71 samples)
 native            :   179.39 op/s ±   1.15% (81 samples)
-lodash native     :  2726.48 op/s ±   1.12% (87 samples)
+lodash native     :  2650.75 op/s ±   1.12% (87 samples)
 -------------------------------------------------------
 
 
 filter-map-reduce 1000
 -------------------------------------------------------
-rbbit builder     :  44322.36 op/s ±   4.96% (85 samples)
-rbbit list        :   5451.07 op/s ±   1.08% (86 samples)
+rbbit builder     :  48258.68 op/s ±   4.96% (85 samples)
+rbbit list        :   5896.40 op/s ±   1.08% (86 samples)
 immutablejs       :   2336.60 op/s ±   1.86% (82 samples)
 mori              :    651.25 op/s ±   1.51% (83 samples)
 seamless-immutable:   1243.33 op/s ±   1.56% (85 samples)

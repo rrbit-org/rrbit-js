@@ -1,6 +1,6 @@
 {
   "name": "rrbit-js",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "persistent collections in js using relaxed-radix-balancing",
   "main": "lib/index.cjs.js",
   "module": "src/index.js",
@@ -17,7 +17,7 @@
     "immutable": "^3.8.1",
     "immutable-array-methods": "^1.5.0",
     "jest": "^19.0.2",
-    "lib-rrbit": "^2.0.7-beta"
+    "lib-rrbit": "^2.0.7-beta",
     "lodash": "^4.17.4",
     "mori": "^0.3.2",
     "rollup": "^0.41.6",

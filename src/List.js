@@ -94,8 +94,8 @@ proto.map = function(fn) {
 			return this.add(this.fn(value), list)
 		}
 	};
-	
-	return this.reduce(lib.step.bind(lib), empty())
+
+	return this.reduce(lib.step.bind(lib), this.empty());
 }
 
 proto.append = proto.push = function(value) {
@@ -113,8 +113,9 @@ proto.filter = function(predicate) {
 		step(list, value) {
 			return this.predicate(value) ? this.add(value, list) : list
 		}
-	}
-    return this.reduce(lib.step.bind(lib), empty());
+	};
+	
+	return this.reduce(lib.step.bind(lib), this.empty());
 };
 
 /**
@@ -185,8 +186,9 @@ proto.find = function(predicate) {
     return find(predicate, this);
 }
 
+proto._reduceHelper = reduce;
 proto.reduce = function(fn, seed) {
-    return reduce(fn, seed, this);
+    return this._reduceHelper(fn, seed, this);
 }
 
 proto.reduceRight = function(fn, seed) {
@@ -216,7 +218,7 @@ proto.appendAll = proto.concat = function(iterable) {
 	var lib = {
 		add: append
 		, step(list, value) {
-			return add(value, list)
+			return this.add(value, list)
 		}
 	}
 	
