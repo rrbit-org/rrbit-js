@@ -31,6 +31,11 @@
   "scripts": {
     "test": "BABEL_ENV=test ./node_modules/.bin/jest tests/*.test.js",
     "test:list": "BABEL_ENV=test ./node_modules/.bin/jest tests/List.test.js",
+    "bench:fmr": "BABEL_ENV=prod node project/bench.js --file=perf/filter-map-reduce.perf.js",
+    "bench:push": "BABEL_ENV=prod node project/bench.js --file=perf/append.perf.js",
+    "bench:pre": "BABEL_ENV=prod node project/bench.js --file=perf/prepend.perf.js",
+    "bench:take": "BABEL_ENV=prod node project/bench.js --file=perf/take.perf.js",
+    "bench:iter": "BABEL_ENV=prod node project/bench.js --file=perf/iteration.perf.js",
     "build": "BABEL_ENV=prod ./node_modules/.bin/rollup --config rollup.prod.js"
   }
 }

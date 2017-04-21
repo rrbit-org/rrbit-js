@@ -49,9 +49,7 @@ module.exports = function runSuite(suite, skipped) {
 
 		})
 		.on('error', function(e) {
-			var err = e.error || (e.target && e.target.error)
-
-			errors.push(err)
+			errors.push(e.error)
 		})
 		.on('complete', function() {
 			var opsLen = 0;
