@@ -36,6 +36,8 @@
     "bench:pre": "BABEL_ENV=prod node project/bench.js --file=perf/prepend.perf.js",
     "bench:take": "BABEL_ENV=prod node project/bench.js --file=perf/take.perf.js",
     "bench:iter": "BABEL_ENV=prod node project/bench.js --file=perf/iteration.perf.js",
+    "bench:map": "BABEL_ENV=prod node project/bench.js --file=perf/map.perf.js",
+    "bench:filter": "BABEL_ENV=prod node project/bench.js --file=perf/filter.perf.js",
     "build": "BABEL_ENV=prod ./node_modules/.bin/rollup --config rollup.prod.js"
   }
 }
