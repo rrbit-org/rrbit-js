@@ -1592,9 +1592,9 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-lib-rrbit@^2.0.7-beta:
-  version "2.0.7-beta"
-  resolved "https://registry.yarnpkg.com/lib-rrbit/-/lib-rrbit-2.0.7-beta.tgz#e1158502cb2e4acc0b1352fb73770a2470dc1cea"
+lib-rrbit@^2.0.10-beta:
+  version "2.0.10-beta"
+  resolved "https://registry.yarnpkg.com/lib-rrbit/-/lib-rrbit-2.0.10-beta.tgz#bafc58af7abc1390405c7cb6f40bc136c018ef8b"
   dependencies:
     jest "^19.0.2"
 
