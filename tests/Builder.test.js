@@ -1,4 +1,4 @@
-import {List} from '../lib/index'
+import {List} from '../src/index'
 const Builder = List.Builder
 
 

@@ -87,7 +87,7 @@ test('map', () => {
 	}
 });
 
-test('filter', () => {
+test.only('filter', () => {
 	var vec = List.range(0, 1000)
 
 	var even = vec.filter(val => !(val % 2));

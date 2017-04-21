@@ -10,6 +10,17 @@ describe('append/push comparisons', function() {
 		}
 	});
 
+	it('immutable-js append w/mutations 1k', function() {
+		var list = Immutable.List();
+
+		list.withMutations(function(list) {
+			for (var i = 0; 1000 > i; i++) {
+				list = list.push(i);
+			}
+		})
+
+	});
+
 	it('mori vector append 1k', function() {
 		// the original HAMT, highly optimized for append
 		var list = mori.vector();
@@ -18,18 +29,23 @@ describe('append/push comparisons', function() {
 		}
 	});
 
+	it.skip('mori range 1k', function() {
+		var list = mori.range(0, 1000)
+
+	});
+
 	it('rrbit list range 1k', function() {
 		var list = List.range(0, 1000)
 	});
 
-	it('native 1k comparible(upper limit possible)', function() {
-		// full array copy, resetting every 32
+	it('rrbit list times 1k', function() {
+		var list = List.times(1000, i => i)
+	});
 
-		var list = [];
+	it('rrbit slower range 1k', function() {
+		var list = List.empty()
 		for (var i = 0; 1000 > i; i++) {
-			list = list.slice(0);
-			list.push(i);
-			if (list.length == 32) list = [];
+			list = list.append(i)
 		}
 	});
 

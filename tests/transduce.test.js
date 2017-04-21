@@ -16,7 +16,7 @@
 // 	scan
 // } from './transduce'
 //
-import {List, Sequence} from '../lib/index.cjs'
+import {List, Sequence} from '../src/index'
 
 
 test('canary in the coalmine', () => {

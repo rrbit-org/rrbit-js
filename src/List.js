@@ -44,7 +44,14 @@ function _from(collection) {
     if (typeof collection.reduce == 'function') {
     	// let's assume that reducing is usually
 		// faster than an iterator, since there's no object creation
-		return collection.reduce((list, value) => appendǃ(value, list), empty())
+		var lib = {
+			add: appendǃ,
+			step(list, value) {
+				return this.add(value, list)
+			}
+		};
+
+		return collection.reduce(lib.step.bind(lib), empty())
 	}
 
     if (typeof collection[Symbol.iterator] == 'function') {
@@ -63,10 +70,11 @@ function _fromArray(array) {
 
 function _fromIterable(iterable) {
 	var vec = empty();
+	var add = appendǃ;
 	var it = iterable[Symbol.iterator]();
 	var x = it.next();
 	while (!(x = it.next()).done) {
-		vec = appendǃ(x.value, vec);
+		vec = add(x.value, vec);
 	}
 	return vec;
 }
@@ -79,7 +87,8 @@ List.from = List.prototype.from = _from;
 
 var proto = List.prototype;
 proto.empty = empty;
-
+proto.__appendHelper = append
+proto.__appendHelperTx = appendǃ
 
 /**
  * fantasyland compatible (1 argument) map
@@ -89,7 +98,7 @@ proto.empty = empty;
 proto.map = function(fn) {
 	var lib = {
 		fn,
-		add: appendǃ,
+		add: this.__appendHelperTx,
 		step(list, value) {
 			return this.add(this.fn(value), list)
 		}
@@ -99,7 +108,7 @@ proto.map = function(fn) {
 }
 
 proto.append = proto.push = function(value) {
-    return append(value, this);
+	return this.__appendHelper(value, this);
 };
 
 proto.prepend = proto.unshift = function(value) {
@@ -109,7 +118,7 @@ proto.prepend = proto.unshift = function(value) {
 proto.filter = function(predicate) {
 	var lib = {
 		predicate,
-		add: appendǃ,
+		add: this.__appendHelperTx,
 		step(list, value) {
 			return this.predicate(value) ? this.add(value, list) : list
 		}
@@ -271,7 +280,12 @@ function times(n, fn) {
 List.times = proto.times = times;
 
 function range(start, end) {
-	return times(end - start, i => i + start)
+	var vec = this.empty();
+	var add = appendǃ;
+	for (; start < end; start++) {
+		vec = add(start, vec)
+	}
+	return vec;
 }
 List.range = proto.range = range;
 
@@ -280,7 +294,7 @@ List.range = proto.range = range;
 proto.intersperse = function(separator) {
 	if(this.length < 2) return this;
 	var lib = {
-		add: appendǃ,
+		add: this.__appendHelperTx,
 		separator,
 		FIRST: {},
 		step(acc, value) {
@@ -299,7 +313,7 @@ proto.join = function(separator) {
 	if (this.length == 1) return "" + this.get(0);
 
 	var lib = {
-		add: appendǃ,
+		add: this.__appendHelperTx,
 		separator,
 		FIRST: {},
 		step(acc, value) {
