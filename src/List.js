@@ -135,21 +135,24 @@ proto.drop = function(n) {
     return drop(n, this);
 };
 
+proto.__takeHelper = take;
 /**
  * keep first n item, dropping the remaining
  * @param n
  */
 proto.take = function(n) {
-    return take(n, this);
+	return this.__takeHelper(n, this);
 };
 
+
+proto.__nthHelper = nth;
 /**
  * legacy get, to make things easy for beginners to lean
  * @param {number} i
  * @param notFound
  */
 proto.get = function(i, notFound) {
-  return nth(i, this, notFound);
+	return __nthHelper(i, this, notFound);
 };
 
 
@@ -159,7 +162,7 @@ proto.get = function(i, notFound) {
  * @returns {Maybe}
  */
 proto.nth = function(i) {
-	return Maybe.of(nth(i, this, Maybe.Nothing()));
+	return Maybe.of(this.__nthHelper(i, this, Maybe.Nothing()));
 };
 
 // conventions seem to dictate this be named 'set'

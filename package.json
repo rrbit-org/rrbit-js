@@ -35,6 +35,7 @@
     "bench:push": "BABEL_ENV=prod node project/bench.js --file=perf/append.perf.js",
     "bench:pre": "BABEL_ENV=prod node project/bench.js --file=perf/prepend.perf.js",
     "bench:take": "BABEL_ENV=prod node project/bench.js --file=perf/take.perf.js",
+    "bench:drop": "BABEL_ENV=prod node project/bench.js --file=perf/drop.perf.js",
     "bench:iter": "BABEL_ENV=prod node project/bench.js --file=perf/iteration.perf.js",
     "bench:map": "BABEL_ENV=prod node project/bench.js --file=perf/map.perf.js",
     "bench:filter": "BABEL_ENV=prod node project/bench.js --file=perf/filter.perf.js",
