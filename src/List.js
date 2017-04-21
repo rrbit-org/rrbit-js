@@ -152,7 +152,7 @@ proto.__nthHelper = nth;
  * @param notFound
  */
 proto.get = function(i, notFound) {
-	return __nthHelper(i, this, notFound);
+	return this.__nthHelper(i, this, notFound);
 };
 
 
