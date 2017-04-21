@@ -1,4 +1,4 @@
-import {List} from '../lib/index.cjs'
+import {List} from '../lib/index'
 const Builder = List.Builder
 
 

@@ -1,4 +1,5 @@
-import { setup } from 'lib-rrbit/src/cassowry/index';
+// import { setup } from 'lib-rrbit';
+import {setup} from 'lib-rrbit';
 
 export function List(len) {
 	this.length = len || 0;

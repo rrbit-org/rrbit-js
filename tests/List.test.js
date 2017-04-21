@@ -1,4 +1,4 @@
-import {List} from '../lib/index.cjs'
+import {List} from '../src/index'
 import fl from 'fantasy-land'
 import * as Monad from 'fantasy-land/laws/monad'
 import * as Traversable from 'fantasy-land/laws/traversable'
@@ -139,16 +139,16 @@ test('removeAt / remove', () => {
 	var vec = List.range(0, 1000)
 
 	var vec2 = vec.removeAt(500);
-	expect(vec2.get(499)).toEqual(499)
-	expect(vec2.get(500)).toEqual(501)
-	expect(vec2.get(501)).toEqual(502)
-	expect(vec2.length).toEqual(999)
+	expect(vec2.get(499)).toEqual(499);
+	expect(vec2.get(500)).toEqual(501);
+	expect(vec2.get(501)).toEqual(502);
+	expect(vec2.length).toEqual(999);
 
 	var vec3 = vec.remove(500);
-	expect(vec3.get(499)).toEqual(499)
-	expect(vec3.get(500)).toEqual(501)
-	expect(vec3.get(501)).toEqual(502)
-	expect(vec3.length).toEqual(999)
+	expect(vec3.get(499)).toEqual(499);
+	expect(vec3.get(500)).toEqual(501);
+	expect(vec3.get(501)).toEqual(502);
+	expect(vec3.length).toEqual(999);
 //
 });
 

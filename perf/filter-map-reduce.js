@@ -1,7 +1,7 @@
 var Benchmark = require('benchmark');
 var run = require('../project/runSuite')
 
-var List = require('../lib/index.cjs').default;
+var List = require('../lib/rrbit').default;
 var Imm = require('immutable');
 var seamless = require('seamless-immutable');
 var mori = require('mori');

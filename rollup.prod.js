@@ -1,6 +1,6 @@
-import buble from 'rollup-plugin-buble';
 import resolve from 'rollup-plugin-node-resolve'
 import cleanup from 'rollup-plugin-cleanup'
+import babel from 'rollup-plugin-babel';
 
 export default  {
 	entry: 'src/index.js',
@@ -10,16 +10,9 @@ export default  {
 			module: true,
 			main: false
 		}),
-
-		buble({
-			objectAssign: 'Object.assign',
-			transforms:{
-				// dangerousForOf: true
-				forOf: false
-			}
-		}),
+		babel(),
 		cleanup()
 	],
 	format: 'cjs',
-	dest: 'lib/index.cjs.js'
+	dest: 'lib/rrbit.js'
 }
